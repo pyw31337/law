@@ -1,8 +1,8 @@
 {
-  "version": "2.0.0",
-  "last_updated": "2026-11-18T11:17:00+09:00",
-  "total_jurisdictions": 12,
-  "total_cases_indexed": 38030,
+  "version": "2.1.0",
+  "last_updated": "2026-11-18T11:43:00+09:00",
+  "total_jurisdictions": 16,
+  "total_cases_indexed": 38172,
   "coverage_sectors": {
     "domestic_korea": {
       "statutes_count": 1580,
@@ -21,6 +21,11 @@
     "eu_continental": {
       "eu_regulations_count": 2330,
       "key_domains": ["EU GDPR (일반데이터보호규정)", "EU AI Act (인공지능 규제법)", "EU DMA/DSA (디지털시장법)", "독일 민법(BGB) 비교법학"]
+    },
+    "asia_major_powers": {
+      "china_cases_count": 1200,
+      "japan_cases_count": 940,
+      "key_domains": ["중국 최고인민법원 지식재산권·반독점 지도사례", "중국 민법전(民法典) 계약편", "일본 최고재판소 회사법 이사책임 판례", "일본 부정경쟁방지법"]
     }
   },
   "cross_border_dispute_cases": [
@@ -50,6 +55,15 @@
       "legal_issue": "EU GDPR 제44조 역외이전 제한 위반 및 AI Act상 '고위험 AI 시스템' 투명성 의무 위반(최대 전 세계 매출 7% 과징금).",
       "leading_ruling": "CJEU (유럽사법재판소) Schrems II 판결 (C-311/18): 표준계약조항(SCC)을 체결했더라도 수취국의 정부 감시법제가 EU 권리 보호를 침해할 우려가 있다면 전송 즉시 중단 및 과징금 부과 대상.",
       "action_guide": "1. 유럽위원회 승인 최신 표준계약조항(SCC) 체결 및 전송영향평가(TIA) 수행.\n2. 모델 가중치에 포함된 개인정보 비가역적 파기 입증 및 익명화(Pseudonymization) 기술 검증 리포트 제출."
+    },
+    {
+      "id": "case-intl-004",
+      "title": "중국 내 외자기업 배터리 특허 침해 소송 (중국 최고인민법원 지재권부)",
+      "jurisdiction": "중국 최고인민법원 (Supreme People's Court)",
+      "facts": "국내 2차전지 기업이 중국 현지 부품사를 상대로 양극재 특허 침해 금지 및 3억 위안 손해배상 소송 제기.",
+      "legal_issue": "중국 전리법(专利法)상 징벌적 손해배상(최대 5배) 적용 요건과 특허무효심판(PRB) 병합 절차.",
+      "leading_ruling": "중국 최고인민법원 지식재산권법정 지도사례 제113호: 고의 침해 및 사안의 중대성이 입증될 경우 라이선스 비용 기준 3배 징벌적 배상액 산정 확정.",
+      "action_guide": "1. 중국 국가지식산권국(CNIPA) 무효심판 방어 논리 선제 구축.\n2. 침해 증거 공증(중국 공증처 현장 보전) 필수 확보 후 베이징 지식재산권법원 제기."
     }
   ]
 }

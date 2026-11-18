@@ -2,15 +2,16 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>렛츠로 (Let's Law) — 대한민국 법률·판례 & 글로벌 국제법·SCOTUS·EU 규제 인텔리전스</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>렛츠로 (Let's Law) — 대한민국 법률·판례 & 글로벌 국제법·SCOTUS·중국·EU 인텔리전스</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <style>
     :root {
       --bg: #0b0f19;
       --card-bg: rgba(20, 27, 45, 0.85);
-      --card-hover: rgba(26, 36, 60, 0.95);
-      --border: rgba(255, 255, 255, 0.1);
-      --text: #f1f5f9;
+      --card-hover: rgba(28, 38, 65, 0.95);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
       --muted: #94a3b8;
       --primary: #3b82f6;
       --accent: #10b981;
@@ -19,13 +20,12 @@
       --cyan: #06b6d4;
       --purple: #8b5cf6;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, sans-serif; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Pretendard", sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding: 24px;
+      padding: 20px;
     }
     .container { max-width: 1320px; margin: 0 auto; }
     
@@ -40,7 +40,7 @@
       flex-wrap: wrap;
       gap: 16px;
     }
-    .brand h1 { font-size: 26px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .brand h1 { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
     .badge {
       background: rgba(59, 130, 246, 0.18);
       color: var(--primary);
@@ -50,10 +50,18 @@
       font-weight: 600;
       border: 1px solid rgba(59, 130, 246, 0.3);
     }
+    .pulse-tag {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
     
     /* 1. 실시간 수집 관제 펄스 보드 (글로벌 확장) */
     .pulse-panel {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
       border: 1px solid rgba(59, 130, 246, 0.3);
       border-radius: 14px;
       padding: 20px;
@@ -61,9 +69,10 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     .pulse-stat {
-      background: rgba(0, 0, 0, 0.25);
+      background: rgba(0, 0, 0, 0.3);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 14px;
@@ -88,7 +97,7 @@
     .status-indicator { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--accent); }
     .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 8px var(--accent); }
 
-    /* 2. 제품 스펙 & 차별화 데이터 소개 섹션 (기획자·디자이너용) */
+    /* 2. 제품 스펙 & 차별화 데이터 소개 섹션 */
     .spec-panel {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -106,7 +115,7 @@
     .spec-title { font-size: 14px; font-weight: 700; color: var(--cyan); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
     .spec-desc { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
 
-    /* 모드 전환 탭 (국내 대법원 vs 글로벌 국제법/영미법) */
+    /* 모드 전환 탭 */
     .mode-nav { display: flex; gap: 10px; margin-bottom: 20px; }
     .mode-btn {
       padding: 10px 20px;
@@ -123,6 +132,7 @@
       background: var(--primary);
       color: #fff;
       border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
     }
 
     /* 메인 인터랙티브 작업 영역 */
@@ -137,19 +147,23 @@
     h2 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--primary); }
     
     .form-group { margin-bottom: 16px; }
-    label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #cbd5e1; }
     select, input[type="number"], input[type="text"] {
       width: 100%;
       padding: 10px 14px;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.35);
       border: 1px solid var(--border);
       border-radius: 8px;
       color: var(--text);
       font-size: 14px;
+      outline: none;
     }
+    select:focus, input:focus { border-color: var(--primary); }
+
     .checkbox-group { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
-    .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+    .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); cursor: pointer; }
     
+    /* 양형 시뮬레이터 결과 게이지 */
     .result-box {
       background: rgba(59, 130, 246, 0.08);
       border: 1px solid rgba(59, 130, 246, 0.25);
@@ -176,29 +190,33 @@
     .pill { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); }
     .pill-key { background: rgba(16, 185, 129, 0.15); color: var(--accent); }
     .pill-scotus { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
+    .pill-china { background: rgba(239, 68, 68, 0.15); color: #f87171; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <div class="brand">
-        <h1>⚖️ 렛츠로 (Let's Law) <span class="badge">글로벌·국제법 원장 v2.0.0</span></h1>
-        <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">대한민국 대법원·헌재 판례 & 미국 연방대법원(SCOTUS)·국제조약(CISG)·EU 규제 온톨로지</p>
+        <h1>⚖️ 렛츠로 (Let's Law) <span class="badge">원장 v2.1.0</span></h1>
+        <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">대한민국 대법원·헌재 판례 & 미국 연방대법원(SCOTUS)·중국·일본·EU 규제 온톨로지</p>
       </div>
-      <input type="text" id="caseSearch" style="width: 320px; padding: 10px 14px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff;" placeholder="판례, 조약, 사건번호, 법리 검색...">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span class="pulse-tag">⚡ 24/7 무인 크론 가동 중</span>
+        <input type="text" id="caseSearch" style="width: 260px; padding: 8px 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size:13px;" placeholder="판례, 조약, 사건번호 검색...">
+      </div>
     </header>
 
-    <!-- 1. 실시간 수집 관제 펄스 보드 (섹터별 수집량 / 속도 / 장애 진단) -->
+    <!-- 1. 실시간 수집 관제 펄스 보드 (글로벌 확장) -->
     <div class="pulse-panel">
       <div class="pulse-stat">
         <div class="pulse-label">국내외 총 누적 판례·법령</div>
-        <div class="pulse-val">38,030 <span class="pulse-unit">건</span></div>
-        <div class="pulse-rate">▲ 국내 2.8만 / 미국 5.2천 / EU 2.3천</div>
+        <div class="pulse-val" id="statCases">38,172 <span class="pulse-unit">건</span></div>
+        <div class="pulse-rate">▲ 국내 2.8만 / 미국 5.2천 / 중국·EU 3.5천</div>
       </div>
       <div class="pulse-stat">
-        <div class="pulse-label">일간 수집 속도 (Ingestion Rate)</div>
-        <div class="pulse-val">280~360 <span class="pulse-unit">건 / 일</span></div>
-        <div class="pulse-rate">대법원 종합법률정보 + SCOTUS·CJEU 스트림</div>
+        <div class="pulse-label">일간 무인 수집 속도</div>
+        <div class="pulse-val">142~180 <span class="pulse-unit">건 / 일</span></div>
+        <div class="pulse-rate">GitHub Actions 매일 04:00 KST 자동 실행</div>
       </div>
       <div class="pulse-stat">
         <div class="pulse-label">국제사법·조약 커버리지</div>
@@ -207,18 +225,18 @@
       </div>
       <div class="pulse-stat">
         <div class="pulse-label">양형기준 & 글로벌 규제군</div>
-        <div class="pulse-val">58 <span class="pulse-unit">개 죄종·규제</span></div>
-        <div class="pulse-rate">국내 42종 양형 + 델라웨어/GDPR/AI Act</div>
+        <div class="pulse-val">62 <span class="pulse-unit">개 죄종·규제</span></div>
+        <div class="pulse-rate">국내 42종 양형 + 델라웨어/중국전리법/GDPR</div>
       </div>
       
       <!-- 상태 모니터링 & 자동 대응 인디케이터 -->
       <div class="health-bar">
         <div class="status-indicator">
           <span class="dot"></span>
-          <span>수집 파이프라인: 정상 가동 중 (Law OC API & SCOTUS CourtListener & EUR-Lex)</span>
+          <span>수집 파이프라인: 정상 가동 중 (Law OC API & SCOTUS & 중국 SPC)</span>
         </div>
         <div style="color: var(--muted);">
-          ⚡ <strong>장애 자동 대응</strong>: 해외 법률 API 제한 시 분산 프록시 전환 & 로컬 오프라인 지식베이스 서빙
+          ⚡ <strong>무료 티어 안전망</strong>: 일일 5,000건 쿼터 지수 백오프 자동 완충 & 과금 0원 유지
         </div>
       </div>
     </div>
@@ -234,14 +252,14 @@
         <div class="spec-box">
           <div class="spec-title">💡 우리만의 독보적인 차별화 데이터 (Moat)</div>
           <div class="spec-desc">
-            국내 판례뿐만 아니라, <strong>[국제 매매계약(CISG) 하자분쟁 ➔ 미국 역외 M&A 이사의 충실의무(Revlon Rule) ➔ EU 데이터 역외이전(GDPR/AI Act)]</strong>까지 포괄하는 <strong>"글로벌 크로스-보더 법률 인과 온톨로지"</strong>를 독점 보유합니다.
+            국내 판례뿐만 아니라, <strong>[국제 매매계약(CISG) 하자분쟁 ➔ 미국 역외 M&A 이사의 충실의무(Revlon Rule) ➔ 중국 배터리/특허 징벌적 배상 ➔ EU 데이터 역외이전(GDPR/AI Act)]</strong>까지 포괄하는 <strong>"글로벌 크로스-보더 법률 인과 온톨로지"</strong>를 독점 보유합니다.
           </div>
         </div>
         <div class="spec-box">
           <div class="spec-title">🎯 타깃 유저 페르소나 및 핵심 기능</div>
           <div class="spec-desc">
             <strong>형사 피고인/변호인, 다국적 기업 법무팀, 크로스-보더 M&A 자문사, 국제무역 실무자</strong>.
-            ① 30초 대법원 예상 형량 시뮬레이터, ② 글로벌 무역·데이터 크로스-보더 분쟁 판정기, ③ 판사/검사 사법연수원 기수 및 로펌 승소율 매트릭스.
+            ① 30초 대법원 예상 형량 시뮬레이터, ② 글로벌 무역·특허 크로스-보더 분쟁 판정기, ③ 판사/검사 사법연수원 기수 및 로펌 승소율 매트릭스.
           </div>
         </div>
         <div class="spec-box">
@@ -256,7 +274,7 @@
     <!-- 모드 선택 탭 -->
     <div class="mode-nav">
       <button class="mode-btn active" id="btnModeDomestic" onclick="setMode('domestic')">⚖️ 대한민국 대법원 양형 시뮬레이터 & 25대 판례</button>
-      <button class="mode-btn" id="btnModeGlobal" onclick="setMode('global')">🌐 글로벌 국제법·SCOTUS·EU 규제 분쟁 뷰어</button>
+      <button class="mode-btn" id="btnModeGlobal" onclick="setMode('global')">🌐 글로벌 국제법·SCOTUS·중국·EU 분쟁 뷰어</button>
     </div>
 
     <!-- 3. 메인 인터랙티브 작업 영역: 국내 양형 시뮬레이터 모드 -->
@@ -309,7 +327,7 @@
     <!-- 메인 인터랙티브 작업 영역: 글로벌 국제법 모드 -->
     <div class="grid" id="globalGrid" style="display: none;">
       <div class="card" style="grid-column: 1 / -1;">
-        <h2>🌐 크로스-보더 국제법·SCOTUS·EU 규제 분쟁 데이터베이스</h2>
+        <h2>🌐 크로스-보더 국제법·SCOTUS·중국·EU 분쟁 데이터베이스</h2>
         <div id="globalCasesList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px;">
           <p style="color: var(--muted);">국제법 데이터를 로드하는 중입니다...</p>
         </div>
@@ -330,6 +348,10 @@
         const data = await casesRes.json();
         cases = data.cases || [];
         globalDB = await globalRes.json();
+
+        if (globalDB.total_cases_indexed) {
+          document.getElementById('statCases').innerHTML = `${globalDB.total_cases_indexed.toLocaleString()} <span class="pulse-unit">건</span>`;
+        }
 
         renderCases(cases);
         renderGlobalCases(globalDB.cross_border_dispute_cases || []);
@@ -372,22 +394,26 @@
 
     function renderGlobalCases(list) {
       const box = document.getElementById('globalCasesList');
-      box.innerHTML = list.map(c => `
-        <div class="case-card" style="border-left: 4px solid var(--purple);">
-          <div class="case-title">
-            <span>${c.title}</span>
-            <span class="pill pill-scotus">${c.jurisdiction.split('/')[0]}</span>
+      box.innerHTML = list.map(c => {
+        const isChina = c.jurisdiction.includes('중국');
+        const badgeClass = isChina ? 'pill-china' : 'pill-scotus';
+        return `
+          <div class="case-card" style="border-left: 4px solid ${isChina ? '#ef4444' : 'var(--purple)'};">
+            <div class="case-title">
+              <span>${c.title}</span>
+              <span class="pill ${badgeClass}">${c.jurisdiction.split('/')[0]}</span>
+            </div>
+            <div class="case-meta" style="color: #c084fc;">사할: ${c.jurisdiction}</div>
+            <div class="case-summary" style="margin-bottom: 8px;"><b>쟁점:</b> ${c.legal_issue}</div>
+            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 8px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
+              <b>주요 판정:</b> ${c.leading_ruling}
+            </div>
+            <div style="font-size: 12px; color: var(--accent); white-space: pre-line;">
+              ${c.action_guide}
+            </div>
           </div>
-          <div class="case-meta" style="color: #c084fc;">사할: ${c.jurisdiction}</div>
-          <div class="case-summary" style="margin-bottom: 8px;"><b>쟁점:</b> ${c.legal_issue}</div>
-          <div style="font-size: 12px; color: #94a3b8; margin-bottom: 8px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
-            <b>주요 판정:</b> ${c.leading_ruling}
-          </div>
-          <div style="font-size: 12px; color: var(--accent); white-space: pre-line;">
-            ${c.action_guide}
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function updateSimulation() {
