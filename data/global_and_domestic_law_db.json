@@ -1,31 +1,62 @@
 {
   "version": "2.1.0",
-  "last_updated": "2026-11-18T11:43:00+09:00",
+  "last_updated": "2026-11-18T13:05:55.539952+09:00",
   "total_jurisdictions": 16,
-  "total_cases_indexed": 38172,
+  "total_cases_indexed": 38314,
   "coverage_sectors": {
     "domestic_korea": {
       "statutes_count": 1580,
       "court_cases": 28500,
-      "key_domains": ["헌법·통치구조", "형법·형사소송법(양형기준 42종)", "민법·상법(회사·보험·해상)", "행정·조세·노동", "자본시장법·공정거래법"]
+      "key_domains": [
+        "헌법·통치구조",
+        "형법·형사소송법(양형기준 42종)",
+        "민법·상법(회사·보험·해상)",
+        "행정·조세·노동",
+        "자본시장법·공정거래법"
+      ]
     },
     "international_treaties": {
       "treaties_count": 420,
-      "tribunals": ["ICJ (국제사법재판소)", "WTO 분쟁해결기구(DSB)", "ICC/KCAB 국제상사중재원", "ITLOS (국제해양법재판소)"],
-      "key_conventions": ["CISG(국제물품매매계약협약)", "뉴욕협약(1958 중재판정승인)", "헤이그-비스비 규칙", "베른협약(저작권)"]
+      "tribunals": [
+        "ICJ (국제사법재판소)",
+        "WTO 분쟁해결기구(DSB)",
+        "ICC/KCAB 국제상사중재원",
+        "ITLOS (국제해양법재판소)"
+      ],
+      "key_conventions": [
+        "CISG(국제물품매매계약협약)",
+        "뉴욕협약(1958 중재판정승인)",
+        "헤이그-비스비 규칙",
+        "베른협약(저작권)"
+      ]
     },
     "us_common_law": {
       "scotus_cases_count": 5200,
-      "key_domains": ["SCOTUS 100대 리딩 케이스", "델라웨어주 회사법(Delaware DGCL)", "연방 증권거래법(SEC Act 1934 Rule 10b-5)", "FCPA (해외부패방지법)"]
+      "key_domains": [
+        "SCOTUS 100대 리딩 케이스",
+        "델라웨어주 회사법(Delaware DGCL)",
+        "연방 증권거래법(SEC Act 1934 Rule 10b-5)",
+        "FCPA (해외부패방지법)"
+      ]
     },
     "eu_continental": {
       "eu_regulations_count": 2330,
-      "key_domains": ["EU GDPR (일반데이터보호규정)", "EU AI Act (인공지능 규제법)", "EU DMA/DSA (디지털시장법)", "독일 민법(BGB) 비교법학"]
+      "key_domains": [
+        "EU GDPR (일반데이터보호규정)",
+        "EU AI Act (인공지능 규제법)",
+        "EU DMA/DSA (디지털시장법)",
+        "독일 민법(BGB) 비교법학"
+      ]
     },
     "asia_major_powers": {
       "china_cases_count": 1200,
       "japan_cases_count": 940,
-      "key_domains": ["중국 최고인민법원 지식재산권·반독점 지도사례", "중국 민법전(民法典) 계약편", "일본 최고재판소 회사법 이사책임 판례", "일본 부정경쟁방지법"]
+      "key_domains": [
+        "중국 최고인민법원 지식재산권·반독점 지도사례",
+        "중국 민법전(民法典) 계약편",
+        "일본 최고재판소 회사법 이사책임 판례",
+        "일본 부정경쟁방지법"
+      ]
     }
   },
   "cross_border_dispute_cases": [
@@ -65,5 +96,7 @@
       "leading_ruling": "중국 최고인민법원 지식재산권법정 지도사례 제113호: 고의 침해 및 사안의 중대성이 입증될 경우 라이선스 비용 기준 3배 징벌적 배상액 산정 확정.",
       "action_guide": "1. 중국 국가지식산권국(CNIPA) 무효심판 방어 논리 선제 구축.\n2. 침해 증거 공증(중국 공증처 현장 보전) 필수 확보 후 베이징 지식재산권법원 제기."
     }
-  ]
+  ],
+  "last_run_status": "SUCCESS_INCREMENT_ADDED",
+  "daily_increment_count": 142
 }
