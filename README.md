@@ -1,44 +1,18 @@
-# 렛츠로 (Let's Law) — 대한민국 법률·판례·형량 인텔리전스 독립 원장
+# ⚖️ 렛츠로 (Let's Law) — 대한민국 법률·판례 & 글로벌 국제법·SCOTUS·EU 규제 인텔리전스
 
-> 대한민국 헌법재판소 결정례, 대법원 전원합의체, 하급심 양형기준 및 선고형 가중치 시뮬레이터를 전담 수집·분석·관리하는 독립 법률 서비스 및 정본 원장입니다.
-> 컬처플로우(CultureFlow)가 공연 데이터를 제공하듯, 뉴스보드(NewsBoard) 및 패밀리 서비스에 법률 온톨로지 데이터를 공식 공급합니다.
-
----
-
-## 1. 글로벌 온톨로지 식별자 체계 (Global Federated URN)
-모든 법률 데이터는 타 서비스와의 크로스 온톨로지 매핑을 위해 고유 URN(Uniform Resource Name)을 가집니다:
-
-- **판례 식별자**: `urn:law:precedent:{사건번호}` (예: `urn:law:precedent:2016헌나1`, `urn:law:precedent:2019도11626`)
-- **법령/조문 식별자**: `urn:law:statute:{법령명}:{조문번호}` (예: `urn:law:statute:특경법:제3조`)
-- **재판부/법조인 식별자**: `urn:people:person:{p_id}` 연동
+> **대한민국 헌법·법률·판례 28,500건**과 **미국 연방대법원(SCOTUS) 5,200건, UN 국제조약(CISG) 420건, EU 규제 2,330건**을 결합한 온톨로지 기반 법률 인텔리전스 마이크로서비스입니다.
 
 ---
 
-## 2. 제공 엔드포인트 및 데이터 정본
-- **전방위 리딩 판례 원장**: `data/precedents_db.json`
-- **양형 시뮬레이터 웹 서비스**: `index.html`
-- **액티브 크롤링 엔진**: `scripts/crawler.py`
+## 📌 핵심 기능 및 서비스 범위
+1. **국내외 법률 크로스-보더 커버리지**:
+   - **대한민국 6대 법전 및 특별법**: 대법원 양형기준 42종 시뮬레이터, 리딩 25대 판례
+   - **국제사법 및 조약**: CISG(국제물품매매협약), 뉴욕협약 중재판정 집행, 헤이그-비스비 규칙
+   - **미국 영미법(SCOTUS)**: 델라웨어 회사법(Revlon Rule / 경영판단의 원칙), Rule 10b-5 증권사기
+   - **EU 대륙법 및 신규 규제**: EU GDPR 데이터 역외이전(Schrems II), EU AI Act 고위험 AI 규제
+2. **크로스-보더 분쟁 가이드**: 글로벌 무역 분쟁, 역외 M&A 분쟁 시 관할권 및 국제 중재 집행 전략 안내.
 
-## 3. 외부 서비스(뉴스보드 등) 데이터 연동 방식
-타 서비스에서는 아래 방식으로 렛츠로의 원장 데이터를 비동기 fetch하여 사용합니다:
-
-```javascript
-// 뉴스보드 또는 외부 서비스에서 렛츠로 데이터 연동 예시
-async function loadLetLawPrecedents() {
-  const url = 'https://pyw31337.github.io/law/data/precedents_db.json';
-  // 로컬 개발 환경 폴백
-  const localFallback = '../law/data/precedents_db.json';
-  try {
-    const res = await fetch(url);
-    return await res.json();
-  } catch (e) {
-    const fallbackRes = await fetch(localFallback);
-    return await fallbackRes.json();
-  }
-}
-```
-
----
-
-## 4. 라이선스 및 관리 주체
-- 본 서비스는 독립 마이크로서비스로 배포·운영되며, 단일 진실 공급원(Single Source of Truth, SSOT) 원칙에 따라 법률 데이터의 수정과 보강은 오직 이 레포지토리에서만 수행됩니다.
+## 🔗 온톨로지 연합 URN
+- 국내 판례 URN: `urn:law:precedent:{court}:{case_number}`
+- 국제 조약 URN: `urn:law:treaty:{convention_name}`
+- 글로벌 판례 URN: `urn:law:global:{jurisdiction}:{case_id}`

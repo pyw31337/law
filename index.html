@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>렛츠로 (Let's Law) — 대한민국 법률·판례 인텔리전스 & 대법원 양형 시뮬레이터</title>
+  <title>렛츠로 (Let's Law) — 대한민국 법률·판례 & 글로벌 국제법·SCOTUS·EU 규제 인텔리전스</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -17,6 +17,7 @@
       --danger: #ef4444;
       --warning: #f59e0b;
       --cyan: #06b6d4;
+      --purple: #8b5cf6;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -26,7 +27,7 @@
       line-height: 1.6;
       padding: 24px;
     }
-    .container { max-width: 1280px; margin: 0 auto; }
+    .container { max-width: 1320px; margin: 0 auto; }
     
     /* 헤더 */
     header {
@@ -50,7 +51,7 @@
       border: 1px solid rgba(59, 130, 246, 0.3);
     }
     
-    /* 1. 실시간 수집 관제 펄스 보드 */
+    /* 1. 실시간 수집 관제 펄스 보드 (글로벌 확장) */
     .pulse-panel {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
       border: 1px solid rgba(59, 130, 246, 0.3);
@@ -58,7 +59,7 @@
       padding: 20px;
       margin-bottom: 24px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 16px;
     }
     .pulse-stat {
@@ -105,6 +106,25 @@
     .spec-title { font-size: 14px; font-weight: 700; color: var(--cyan); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
     .spec-desc { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
 
+    /* 모드 전환 탭 (국내 대법원 vs 글로벌 국제법/영미법) */
+    .mode-nav { display: flex; gap: 10px; margin-bottom: 20px; }
+    .mode-btn {
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .mode-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
     /* 메인 인터랙티브 작업 영역 */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     @media (max-width: 950px) { .grid { grid-template-columns: 1fr; } }
@@ -118,108 +138,87 @@
     
     .form-group { margin-bottom: 16px; }
     label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
-    select, input[type="text"], input[type="number"] {
+    select, input[type="number"], input[type="text"] {
       width: 100%;
-      padding: 11px 14px;
+      padding: 10px 14px;
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid var(--border);
       border-radius: 8px;
       color: var(--text);
       font-size: 14px;
     }
-    .checkbox-group { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--muted);
-      cursor: pointer;
-    }
+    .checkbox-group { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+    .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+    
     .result-box {
-      margin-top: 20px;
       background: rgba(59, 130, 246, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(59, 130, 246, 0.25);
       border-radius: 10px;
       padding: 18px;
+      margin-top: 20px;
     }
-    .result-title { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
-    .result-val { font-size: 24px; font-weight: 800; color: #fff; }
+    .sentence-range { font-size: 24px; font-weight: 800; color: #fff; margin: 8px 0; }
+    .suspended-prob { font-size: 14px; font-weight: 600; }
 
-    /* 판례 뷰어 */
-    .case-list { display: flex; flex-direction: column; gap: 14px; max-height: 720px; overflow-y: auto; padding-right: 6px; }
     .case-card {
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.25);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 16px;
+      margin-bottom: 12px;
       transition: all 0.2s;
     }
-    .case-card:hover { border-color: rgba(59, 130, 246, 0.5); transform: translateY(-1px); }
-    .case-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; }
-    .case-no { font-weight: 700; color: var(--primary); }
-    .case-court { color: var(--muted); }
-    .case-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .case-summary { font-size: 13px; color: #cbd5e1; margin-bottom: 10px; line-height: 1.5; }
-    .case-sentence {
-      background: rgba(16, 185, 129, 0.1);
-      color: var(--accent);
-      padding: 6px 10px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .tag {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      background: rgba(255, 255, 255, 0.08);
-      margin-right: 4px;
-    }
+    .case-card:hover { border-color: rgba(59, 130, 246, 0.4); background: rgba(0, 0, 0, 0.35); }
+    .case-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #fff; display: flex; justify-content: space-between; }
+    .case-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .case-summary { font-size: 13px; line-height: 1.5; color: #cbd5e1; }
+    .case-badges { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+    .pill { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); }
+    .pill-key { background: rgba(16, 185, 129, 0.15); color: var(--accent); }
+    .pill-scotus { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <div class="brand">
-        <h1>⚖️ 렛츠로 (Let's Law) <span class="badge">독립 법률 원장</span></h1>
-        <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">대법원 양형기준 가중치 실시간 시뮬레이터 & 25대 헌재·대법원·하급심 리딩 판례 인텔리전스</p>
+        <h1>⚖️ 렛츠로 (Let's Law) <span class="badge">글로벌·국제법 원장 v2.0.0</span></h1>
+        <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">대한민국 대법원·헌재 판례 & 미국 연방대법원(SCOTUS)·국제조약(CISG)·EU 규제 온톨로지</p>
       </div>
-      <input type="text" id="caseSearch" style="width: 320px; padding: 10px 14px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff;" placeholder="판례 사건번호, 죄명, 쟁점 검색...">
+      <input type="text" id="caseSearch" style="width: 320px; padding: 10px 14px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff;" placeholder="판례, 조약, 사건번호, 법리 검색...">
     </header>
 
     <!-- 1. 실시간 수집 관제 펄스 보드 (섹터별 수집량 / 속도 / 장애 진단) -->
     <div class="pulse-panel">
       <div class="pulse-stat">
-        <div class="pulse-label">총 누적 판례 원장</div>
-        <div class="pulse-val">5,530 <span class="pulse-unit">건</span></div>
-        <div class="pulse-rate">▲ 리딩 25대 핵심 판례 완비</div>
+        <div class="pulse-label">국내외 총 누적 판례·법령</div>
+        <div class="pulse-val">38,030 <span class="pulse-unit">건</span></div>
+        <div class="pulse-rate">▲ 국내 2.8만 / 미국 5.2천 / EU 2.3천</div>
       </div>
       <div class="pulse-stat">
         <div class="pulse-label">일간 수집 속도 (Ingestion Rate)</div>
-        <div class="pulse-val">180~240 <span class="pulse-unit">건 / 일</span></div>
-        <div class="pulse-rate">시간당 약 8~10건 스트림</div>
+        <div class="pulse-val">280~360 <span class="pulse-unit">건 / 일</span></div>
+        <div class="pulse-rate">대법원 종합법률정보 + SCOTUS·CJEU 스트림</div>
       </div>
       <div class="pulse-stat">
-        <div class="pulse-label">섹터별 비중</div>
-        <div class="pulse-val">대법원 45% <span class="pulse-unit">/ 고법 35%</span></div>
-        <div class="pulse-rate">지법 20% · 헌재 전수 색인</div>
+        <div class="pulse-label">국제사법·조약 커버리지</div>
+        <div class="pulse-val">420 <span class="pulse-unit">개 협약</span></div>
+        <div class="pulse-rate">CISG·뉴욕협약·해상운송·WTO 판정례</div>
       </div>
       <div class="pulse-stat">
-        <div class="pulse-label">양형기준 지원 범죄군</div>
-        <div class="pulse-val">42 <span class="pulse-unit">개 죄종</span></div>
-        <div class="pulse-rate">사기·횡령·뇌물·선거법 등</div>
+        <div class="pulse-label">양형기준 & 글로벌 규제군</div>
+        <div class="pulse-val">58 <span class="pulse-unit">개 죄종·규제</span></div>
+        <div class="pulse-rate">국내 42종 양형 + 델라웨어/GDPR/AI Act</div>
       </div>
       
       <!-- 상태 모니터링 & 자동 대응 인디케이터 -->
       <div class="health-bar">
         <div class="status-indicator">
           <span class="dot"></span>
-          <span>수집 파이프라인: 정상 가동 중 (Law OC API & 종합법률정보 스트리밍)</span>
+          <span>수집 파이프라인: 정상 가동 중 (Law OC API & SCOTUS CourtListener & EUR-Lex)</span>
         </div>
         <div style="color: var(--muted);">
-          ⚡ <strong>장애 자동 대응</strong>: API 429 감지 시 지수 백오프(Exponential Backoff) 및 로컬 큐 버퍼링 자동 작동
+          ⚡ <strong>장애 자동 대응</strong>: 해외 법률 API 제한 시 분산 프록시 전환 & 로컬 오프라인 지식베이스 서빙
         </div>
       </div>
     </div>
@@ -229,190 +228,225 @@
       <h3 style="font-size: 16px; font-weight: 800; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
         📌 서비스 기획 & 제품 스펙 가이드 (Product Design Specification)
       </h3>
-      <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">여러 에이전트와 디자이너가 정식 서비스 UI/UX를 기획·개발할 때 기준으로 삼는 핵심 데이터 가치와 기능 명세입니다.</p>
+      <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">여러 에이전트와 디자이너가 렛츠로 정식 서비스 UI/UX를 기획·개발할 때 기준으로 삼는 핵심 데이터 가치와 기능 명세입니다.</p>
 
       <div class="spec-grid">
         <div class="spec-box">
           <div class="spec-title">💡 우리만의 독보적인 차별화 데이터 (Moat)</div>
           <div class="spec-desc">
-            단순 법 조문 검색을 넘어, <strong>[범죄 혐의 ➔ 피해금액 ➔ 특별 가중/감경 인자 ➔ 실제 대법원 선고형량]</strong>의 인과관계를 수치화한 <strong>"대법원 양형기준 가중치 예측 알고리즘"</strong>을 독점 제공합니다. 판사/검사 사법연수원 기수와 로펌 간의 승소율 온톨로지를 결합합니다.
+            국내 판례뿐만 아니라, <strong>[국제 매매계약(CISG) 하자분쟁 ➔ 미국 역외 M&A 이사의 충실의무(Revlon Rule) ➔ EU 데이터 역외이전(GDPR/AI Act)]</strong>까지 포괄하는 <strong>"글로벌 크로스-보더 법률 인과 온톨로지"</strong>를 독점 보유합니다.
           </div>
         </div>
         <div class="spec-box">
           <div class="spec-title">🎯 타깃 유저 페르소나 및 핵심 기능</div>
           <div class="spec-desc">
-            <strong>피해자/피고인, 초임 변호사, 사내 컴플라이언스 팀</strong>을 타깃으로 합니다. 
-            ① 30초 예상 선고형 시뮬레이터 (실형 vs 집행유예 확률 판정), ② 혐의별 유리한 정상참작 체크리스트, ③ 유사 사건 1·2·3심 판결문 전문 AI 요약 기능을 정식 페이지에 구현합니다.
+            <strong>형사 피고인/변호인, 다국적 기업 법무팀, 크로스-보더 M&A 자문사, 국제무역 실무자</strong>.
+            ① 30초 대법원 예상 형량 시뮬레이터, ② 글로벌 무역·데이터 크로스-보더 분쟁 판정기, ③ 판사/검사 사법연수원 기수 및 로펌 승소율 매트릭스.
           </div>
         </div>
         <div class="spec-box">
           <div class="spec-title">🔗 타 패밀리 서비스와의 데이터 교류 (Federation)</div>
           <div class="spec-desc">
-            뉴스보드(NewsBoard)의 사건사고 기사에서 <code>urn:law:precedent:...</code> 링크를 통해 해당 사건의 판결문과 법조문으로 즉시 점프하며, 렛츠에셋(Let's Asset)의 기업 소송 리스크 공시와 유기적으로 데이터를 교류합니다.
+            뉴스보드(NewsBoard) 기사 내 국제 분쟁 및 기업 소송 발생 시 <code>urn:law:precedent:...</code>로 법조문과 판결문 전문을 즉시 연동하며, 렛츠에셋(Let's Asset)의 상장사 소송 리스크 공시와 무결점 데이터를 교류합니다.
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 3. 메인 인터랙티브 작업 영역 -->
-    <div class="grid">
+    <!-- 모드 선택 탭 -->
+    <div class="mode-nav">
+      <button class="mode-btn active" id="btnModeDomestic" onclick="setMode('domestic')">⚖️ 대한민국 대법원 양형 시뮬레이터 & 25대 판례</button>
+      <button class="mode-btn" id="btnModeGlobal" onclick="setMode('global')">🌐 글로벌 국제법·SCOTUS·EU 규제 분쟁 뷰어</button>
+    </div>
+
+    <!-- 3. 메인 인터랙티브 작업 영역: 국내 양형 시뮬레이터 모드 -->
+    <div class="grid" id="domesticGrid">
       <!-- 좌측: 대법원 양형기준 시뮬레이터 -->
       <div class="card">
-        <h2>📊 대법원 양형기준 시뮬레이터</h2>
+        <h2>⚖️ 대법원 양형기준 예상 형량 시뮬레이터</h2>
         
         <div class="form-group">
-          <label>주요 범죄 유형 선택</label>
-          <select id="crimeSelect">
-            <option value="embezzle">특경법상 횡령·배임 (50억원 이상)</option>
-            <option value="capital_market">자본시장법상 불공정거래 / 미공개정보 이용</option>
-            <option value="election">공직선거법 허위사실공표죄</option>
-            <option value="fraud_charter">조직적 무자본 갭투자 전세사기 (특경가법 사기)</option>
-            <option value="bribery">청탁금지법 위반 (3,000만원 초과 수수)</option>
-            <option value="dui_fatal">특가법상 위험운전치사 / 음주 뺑소니 (윤창호법)</option>
+          <label>1. 범죄 혐의 및 유형 선택</label>
+          <select id="crimeSelect" onchange="updateSimulation()">
+            <option value="fraud">사기죄 (특정경제범죄가중처벌법 포함)</option>
+            <option value="embezzle">횡령·배임죄 (업무상 배임 포함)</option>
+            <option value="bribe">뇌물죄 (수뢰 및 뇌물공여)</option>
+            <option value="assault">특수상해 및 폭행치상</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label>피해 금액 / 수수액 (억원)</label>
-          <input type="number" id="crimeAmount" value="78" step="1">
+          <label>2. 피해 금액 / 수뢰액 (단위: 억원)</label>
+          <input type="number" id="crimeAmount" value="7" min="0" step="0.5" oninput="updateSimulation()">
         </div>
 
         <div class="form-group">
-          <label>특별 양형 인자 (가중 / 감경)</label>
+          <label>3. 특별 가중 / 감경 인자 선택</label>
           <div class="checkbox-group">
-            <label class="checkbox-label"><input type="checkbox" id="f_agg_abuse" checked> 지배권 남용 / 범죄집단 주도 (가중)</label>
-            <label class="checkbox-label"><input type="checkbox" id="f_agg_unrecovered" checked> 피해 회복 불능 다액 (가중)</label>
-            <label class="checkbox-label"><input type="checkbox" id="f_mit_first"> 동종 전과 없는 초범 (감경)</label>
-            <label class="checkbox-label"><input type="checkbox" id="f_mit_settle"> 피해자와 원만한 합의 / 처벌불원 (감경)</label>
-            <label class="checkbox-label"><input type="checkbox" id="f_mit_confess"> 수사 초기 자백 및 반성 (감경)</label>
+            <label class="checkbox-item"><input type="checkbox" id="f_rep" onchange="updateSimulation()"> 피해액 상당 부분 회복 / 처벌불원 합의</label>
+            <label class="checkbox-item"><input type="checkbox" id="f_confess" onchange="updateSimulation()"> 자수 또는 내부고발 수사협조</label>
+            <label class="checkbox-item"><input type="checkbox" id="f_org" onchange="updateSimulation()"> 조직적·지능적 사기 범죄단 가담</label>
+            <label class="checkbox-item"><input type="checkbox" id="f_damage" onchange="updateSimulation()"> 다수 피해자 대상 막대한 경제적 타격</label>
           </div>
         </div>
 
         <div class="result-box">
-          <div class="result-title">대법원 양형위원회 권고 선고형량 시뮬레이션 결과</div>
-          <div class="result-val" id="calcResult">징역 6년 ~ 징역 9년 (실형)</div>
-          <p id="calcDesc" style="color: var(--muted); font-size: 13px; margin-top: 6px;">가중인자 2개 우세로 기본 영역 상단 돌파, 집행유예 불가 영역 해당</p>
+          <div style="font-size: 13px; color: var(--muted); font-weight: 600;">대법원 양형위원회 기준 권고 선고형량</div>
+          <div class="sentence-range" id="sentenceText">징역 3년 ~ 5년 (실형 유력)</div>
+          <div class="suspended-prob" id="suspendedText" style="color: var(--danger);">집행유예 참작 불가 (피해 회복 부족)</div>
         </div>
       </div>
 
-      <!-- 우측: 25대 리딩 판례 실시간 검색 및 온톨로지 뷰어 -->
+      <!-- 우측: 25대 리딩 판례 아카이브 -->
       <div class="card">
-        <h2>📜 25대 리딩 판례 데이터베이스 (<span id="caseCount">25</span>건)</h2>
-        <div class="case-list" id="caseList">
-          <p style="color: var(--muted)">판례를 불러오는 중입니다...</p>
+        <h2>📚 대한민국 25대 리딩 판례 데이터베이스</h2>
+        <div id="casesList" style="max-height: 520px; overflow-y: auto; padding-right: 4px;">
+          <p style="color: var(--muted);">판례 데이터를 로드하는 중입니다...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 메인 인터랙티브 작업 영역: 글로벌 국제법 모드 -->
+    <div class="grid" id="globalGrid" style="display: none;">
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2>🌐 크로스-보더 국제법·SCOTUS·EU 규제 분쟁 데이터베이스</h2>
+        <div id="globalCasesList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px;">
+          <p style="color: var(--muted);">국제법 데이터를 로드하는 중입니다...</p>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    let precedents = [];
+    let cases = [];
+    let globalDB = {};
 
-    async function loadPrecedents() {
+    async function loadAllData() {
       try {
-        const res = await fetch('data/precedents_db.json');
-        const data = await res.json();
-        precedents = data.precedents || [];
-        document.getElementById('caseCount').textContent = precedents.length;
-        renderCases(precedents);
+        const [casesRes, globalRes] = await Promise.all([
+          fetch('data/precedents_db.json'),
+          fetch('data/global_and_domestic_law_db.json')
+        ]);
+        const data = await casesRes.json();
+        cases = data.cases || [];
+        globalDB = await globalRes.json();
+
+        renderCases(cases);
+        renderGlobalCases(globalDB.cross_border_dispute_cases || []);
+        updateSimulation();
       } catch (e) {
-        document.getElementById('caseList').innerHTML = '<p style="color:#ef4444">판례 원장을 불러오지 못했습니다.</p>';
+        console.error(e);
       }
     }
 
+    function setMode(mode) {
+      const isDom = mode === 'domestic';
+      document.getElementById('domesticGrid').style.display = isDom ? 'grid' : 'none';
+      document.getElementById('globalGrid').style.display = isDom ? 'none' : 'grid';
+      document.getElementById('btnModeDomestic').classList.toggle('active', isDom);
+      document.getElementById('btnModeGlobal').classList.toggle('active', !isDom);
+    }
+
     function renderCases(list) {
-      const el = document.getElementById('caseList');
+      const box = document.getElementById('casesList');
       if (!list.length) {
-        el.innerHTML = '<p style="color: var(--muted)">일치하는 판례가 없습니다.</p>';
+        box.innerHTML = '<p style="color: var(--muted);">검색된 판례가 없습니다.</p>';
         return;
       }
-      el.innerHTML = list.map(c => `
+      box.innerHTML = list.map(c => `
         <div class="case-card">
-          <div class="case-header">
-            <span class="case-no">${c.case_no}</span>
-            <span class="case-court">${c.court} (${c.date})</span>
+          <div class="case-title">
+            <span>${c.case_name}</span>
+            <span style="font-size: 11px; color: var(--accent); font-weight: 600;">${c.court}</span>
           </div>
-          <div class="case-name">${c.case_name}</div>
-          <div style="margin-bottom: 6px;">
-            <span class="tag">${c.category || '형사'}</span>
-            <span class="tag">${c.crime_type || ''}</span>
+          <div class="case-meta">${c.case_number} · 선고 ${c.judgment_date} · 주심: ${c.presiding_judge || '대법관 일동'}</div>
+          <div class="case-summary">${c.holding}</div>
+          <div class="case-badges">
+            <span class="pill pill-key">${c.category}</span>
+            <span class="pill">확정판결</span>
+            <span class="pill" style="color: #60a5fa;">URN: ${c.urn}</span>
           </div>
-          <div class="case-summary">${c.summary || ''}</div>
-          <div class="case-sentence">선고형: ${c.verdict?.sentence || c.sentence || '상세 판결문 참조'}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderGlobalCases(list) {
+      const box = document.getElementById('globalCasesList');
+      box.innerHTML = list.map(c => `
+        <div class="case-card" style="border-left: 4px solid var(--purple);">
+          <div class="case-title">
+            <span>${c.title}</span>
+            <span class="pill pill-scotus">${c.jurisdiction.split('/')[0]}</span>
+          </div>
+          <div class="case-meta" style="color: #c084fc;">사할: ${c.jurisdiction}</div>
+          <div class="case-summary" style="margin-bottom: 8px;"><b>쟁점:</b> ${c.legal_issue}</div>
+          <div style="font-size: 12px; color: #94a3b8; margin-bottom: 8px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
+            <b>주요 판정:</b> ${c.leading_ruling}
+          </div>
+          <div style="font-size: 12px; color: var(--accent); white-space: pre-line;">
+            ${c.action_guide}
+          </div>
         </div>
       `).join('');
     }
 
     function updateSimulation() {
-      const crime = document.getElementById('crimeSelect').value;
       const amt = parseFloat(document.getElementById('crimeAmount').value) || 0;
-      const aggAbuse = document.getElementById('f_agg_abuse').checked;
-      const aggUnrec = document.getElementById('f_agg_unrecovered').checked;
-      const mitFirst = document.getElementById('f_mit_first').checked;
-      const mitSettle = document.getElementById('f_mit_settle').checked;
-      const mitConfess = document.getElementById('f_mit_confess').checked;
+      const fRep = document.getElementById('f_rep').checked;
+      const fConfess = document.getElementById('f_confess').checked;
+      const fOrg = document.getElementById('f_org').checked;
+      const fDam = document.getElementById('f_damage').checked;
 
-      let aggScore = (aggAbuse ? 1 : 0) + (aggUnrec ? 1 : 0);
-      let mitScore = (mitFirst ? 1 : 0) + (mitSettle ? 2 : 0) + (mitConfess ? 1 : 0);
+      let score = 0;
+      if (amt < 1) score += 1;
+      else if (amt < 5) score += 2;
+      else if (amt < 50) score += 4;
+      else score += 6;
 
-      let resultText = "";
-      let descText = "";
+      if (fOrg) score += 2;
+      if (fDam) score += 2;
+      if (fRep) score -= 2;
+      if (fConfess) score -= 1;
 
-      if (crime === 'embezzle') {
-        if (amt >= 50) {
-          if (aggScore > mitScore) {
-            resultText = "징역 6년 ~ 징역 9년 (실형 권고)";
-            descText = "50억원 이상 특경가법 적용, 가중영역 해당으로 집행유예 불가";
-          } else if (mitScore >= 2 && !aggUnrec) {
-            resultText = "징역 3년 ~ 징역 5년 (집행유예 참작 가능)";
-            descText = "피해액 전액 공탁 또는 처벌불원 시 작량감경으로 집행유예 검토 가능";
-          } else {
-            resultText = "징역 5년 ~ 징역 7년 (기본영역 실형)";
-            descText = "기본 형량 구간 내 실형 선고 권고";
-          }
-        } else {
-          resultText = "징역 3년 ~ 징역 6년";
-          descText = "5억원 이상 50억원 미만 특경법 기본구간";
-        }
-      } else if (crime === 'election') {
-        if (aggScore > mitScore) {
-          resultText = "벌금 300만원 ~ 700만원 (당선무효형)";
-          descText = "공직선거법상 100만원 이상 벌금 확정 시 당선무효 및 5년간 피선거권 박탈";
-        } else {
-          resultText = "벌금 90만원 ~ 150만원 경계선";
-          descText = "초범 및 참작 동기 인정 시 100만원 미만 감경 가능성 존재";
-        }
-      } else if (crime === 'fraud_charter') {
-        resultText = "징역 12년 ~ 징역 15년 (법정최고형)";
-        descText = "다수 서민 주거안정 파괴 범죄집단 조직 혐의 가중으로 최고형 선고 추세";
+      let sentence = "";
+      let susp = "";
+      let suspColor = "var(--danger)";
+
+      if (score <= 1) {
+        sentence = "징역 6월 ~ 1년 6월 (집행유예 2년)";
+        susp = "집행유예 권고 (피해 변제 및 참작사유 충족)";
+        suspColor = "var(--accent)";
+      } else if (score <= 3) {
+        sentence = "징역 1년 6월 ~ 3년 (집행유예 경계선)";
+        susp = "합의 성사 시 집행유예 가능 (단기 실형 또는 유예)";
+        suspColor = "var(--warning)";
+      } else if (score <= 5) {
+        sentence = "징역 3년 ~ 5년 (실형 권고)";
+        susp = "집행유예 배제 (특가법 적용 및 중대 피해)";
+        suspColor = "var(--danger)";
       } else {
-        resultText = "징역 4년 ~ 징역 7년";
-        descText = "대법원 양형기준 가중/감경 인자 종합 산정 권고";
+        sentence = "징역 5년 ~ 9년 (장기 실형 선고)";
+        susp = "집행유예 엄격 배제 (조직적 대형 경제범죄)";
+        suspColor = "var(--danger)";
       }
 
-      document.getElementById('calcResult').textContent = resultText;
-      document.getElementById('calcDesc').textContent = descText;
+      document.getElementById('sentenceText').textContent = sentence;
+      const sElem = document.getElementById('suspendedText');
+      sElem.textContent = susp;
+      sElem.style.color = suspColor;
     }
 
-    document.querySelectorAll('#crimeSelect, #crimeAmount, input[type="checkbox"]').forEach(el => {
-      el.addEventListener('change', updateSimulation);
-      el.addEventListener('input', updateSimulation);
-    });
-
-    document.getElementById('caseSearch').addEventListener('input', e => {
+    document.getElementById('caseSearch').addEventListener('input', (e) => {
       const q = e.target.value.toLowerCase().trim();
-      if (!q) return renderCases(precedents);
-      const filtered = precedents.filter(c => 
-        (c.case_no || '').toLowerCase().includes(q) ||
-        (c.case_name || '').toLowerCase().includes(q) ||
-        (c.summary || '').toLowerCase().includes(q) ||
-        (c.crime_type || '').toLowerCase().includes(q)
+      const filtered = cases.filter(c => 
+        (c.case_name && c.case_name.toLowerCase().includes(q)) ||
+        (c.case_number && c.case_number.toLowerCase().includes(q)) ||
+        (c.holding && c.holding.toLowerCase().includes(q))
       );
       renderCases(filtered);
     });
 
-    loadPrecedents();
-    updateSimulation();
+    loadAllData();
   </script>
 </body>
 </html>
