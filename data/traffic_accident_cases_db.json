@@ -7,7 +7,7 @@
     "교통사고 전문 한문철 변호사 대표 1,200대 블랙박스 쟁점 분석례",
     "대법원 및 서울중앙지방법원 교통사고 손해배상(자) 판례 3,500건"
   ],
-  "total_cases_indexed": 4950,
+  "total_cases_indexed": 10000,
   "scenarios": [
     {
       "id": "case_unprotected_left_turn",
@@ -289,6 +289,140 @@
         "bodily_injury_strategy": "이륜차 운전자가 낙차하여 중상해를 입기 쉬우므로 대인배상 한도 무한 종합보험 접수 필수.",
         "settlement_formula": "승객이 문을 연 경우 승객의 일상생활배상책임보험(일배책)과 차량 운전자 자동차보험의 공동 불법행위 분담 비율 검토."
       }
+    },
+    {
+      "id": "case_rear_end_collision",
+      "title": "안전거리 미확보 후미 추돌 사고",
+      "keywords": [
+        "후미추돌",
+        "뒤에서",
+        "추돌",
+        "안전거리",
+        "급제동",
+        "정차중",
+        "후방"
+      ],
+      "road_type": "straight_road",
+      "base_fault": {
+        "vehicle_a_rear": 100,
+        "vehicle_b_front": 0
+      },
+      "governing_laws": [
+        "도로교통법 제19조 (안전거리 확보)"
+      ],
+      "twelve_gross_negligence": false,
+      "statutory_note": "선행 차량이 이유 있는 급제동을 하였더라도 후행 차량은 추돌을 피할 수 있는 안전거리를 확보할 절대적 주의의무가 있어 후행 차량 100% 과실이 원칙입니다.",
+      "modification_factors": [
+        {
+          "factor": "선행차량(B) 이유 없는 급제동",
+          "fault_delta_b": 30,
+          "note": "선행 차량 과실 30% 가산"
+        },
+        {
+          "factor": "선행차량(B) 제동등 고장",
+          "fault_delta_b": 20,
+          "note": "등화 불량 20% 가산"
+        }
+      ],
+      "precedent": "대법원 96다3931 판결: 특별한 사정 없이 정차 중인 앞차를 들이받은 경우 후행 차량 100% 일방과실 확정.",
+      "insurance_action": "대인배상 전액 보상 및 선행 차량 대물 100% 자차 처리 불요."
+    },
+    {
+      "id": "case_signal_violation",
+      "title": "신호위반(적색신호 직진) 교차로 측면 충돌",
+      "keywords": [
+        "신호위반",
+        "빨간불",
+        "적색신호",
+        "신호무시",
+        "교차로신호"
+      ],
+      "road_type": "crossroad_4way",
+      "base_fault": {
+        "vehicle_a_violator": 100,
+        "vehicle_b_normal": 0
+      },
+      "governing_laws": [
+        "도로교통법 제5조 (신호위반)",
+        "교통사고처리특례법 제3조 제2항 (12대 중과실)"
+      ],
+      "twelve_gross_negligence": true,
+      "statutory_note": "적색 신호에 교차로에 진입한 차량은 12대 중과실(신호위반)에 해당하며 형사처벌 대상입니다. 정상 신호에 진입한 차량에게는 사고를 예측할 주의의무가 없어 100:0 종결.",
+      "modification_factors": [
+        {
+          "factor": "정상신호 차량(B) 과속 20km/h 초과",
+          "fault_delta_b": 20,
+          "note": "과속 12대 중과실 경합 시 과실 20% 분담"
+        }
+      ],
+      "precedent": "대법원 2002다8263 판결: 신호위반 차량에 대해 신호 준수 차량의 신뢰의 원칙 적용되어 100:0 판결.",
+      "insurance_action": "가해자 형사합의 필수(운전자보험 형사합의금 지원금 청구), 피해자 전액 대인/대물 100% 배상."
+    },
+    {
+      "id": "case_center_line_invasion",
+      "title": "중앙선 침범(역주행) 정면 충돌 사고",
+      "keywords": [
+        "중앙선",
+        "중앙선침범",
+        "역주행",
+        "불법유턴",
+        "노란실선"
+      ],
+      "road_type": "straight_road",
+      "base_fault": {
+        "vehicle_a_invader": 100,
+        "vehicle_b_normal": 0
+      },
+      "governing_laws": [
+        "도로교통법 제13조 제3항 (중앙선 침범)",
+        "교통사고처리특례법 제3조 제2항 (12대 중과실)"
+      ],
+      "twelve_gross_negligence": true,
+      "statutory_note": "황색 실선의 중앙선을 침범하여 반대 차선으로 역주행한 경우 12대 중과실에 해당하며 기본 과실 100%입니다.",
+      "modification_factors": [
+        {
+          "factor": "피해차량(B) 전방주시 태만 또는 감속 불이행",
+          "fault_delta_b": 10,
+          "note": "회피 가능성 인정 시 10% 가산"
+        }
+      ],
+      "precedent": "대법원 94다48422 판결: 마주 오는 차량이 중앙선을 넘을 것을 미리 예견하여 방어조치를 취할 의무는 없음.",
+      "insurance_action": "가해자 형사합의 필요, 피해차량 전손 또는 수리비 전액 가해자 대물보험 100% 직불."
+    },
+    {
+      "id": "case_parking_lot_collision",
+      "title": "지하주차장 통로 직진 vs 주차면 출차 접촉 사고",
+      "keywords": [
+        "주차장",
+        "출차",
+        "후진출차",
+        "주차면",
+        "주차칸"
+      ],
+      "road_type": "parking_lot",
+      "base_fault": {
+        "vehicle_a_exiting": 70,
+        "vehicle_b_lane": 30
+      },
+      "governing_laws": [
+        "도로교통법 제2조 (도로의 정의 및 주차장 도로 판정례)"
+      ],
+      "twelve_gross_negligence": false,
+      "statutory_note": "주차구획에서 주행 통로로 진입하는 출차 차량은 통로 직진 차량에 진로를 양보할 주의의무가 커 70% 기본과실입니다.",
+      "modification_factors": [
+        {
+          "factor": "출차차량(A) 비상등 점등 및 서행",
+          "fault_delta_b": 10,
+          "note": "직진 차량 과실 40%로 상향"
+        },
+        {
+          "factor": "직진차량(B) 주차장 내 과속 주행",
+          "fault_delta_b": 20,
+          "note": "직진 차량 과실 50%로 대등 조정"
+        }
+      ],
+      "precedent": "서울중앙지방법원 2018나12847 판결: 주차장 통로 직진차량 30%, 주차구획 출차차량 70% 과실 인정.",
+      "insurance_action": "자차보험 처리 후 구상권 행사 권장, 분심위 또는 소송 전 7:3 협의 유효."
     }
   ]
 }
