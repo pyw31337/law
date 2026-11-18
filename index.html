@@ -915,22 +915,24 @@
 
       ctx.fillStyle = '#fca5a5';
       ctx.font = 'bold 12px Pretendard, sans-serif';
-      ctx.fillText(sim.car_b.label, curBx - 38, curBy + 28);
+      ctx.fillText(sim.car_b?.label || '차량 B', curBx - 38, curBy + 28);
 
       // 충돌 발생 시 이펙트
       if (progress >= 90) {
+        const impactX = sim.impact_point?.x ?? ((curAx + curBx) / 2);
+        const impactY = sim.impact_point?.y ?? ((curAy + curBy) / 2);
         ctx.save();
         ctx.beginPath();
-        ctx.arc(sim.impact_point.x, sim.impact_point.y, 26, 0, Math.PI * 2);
+        ctx.arc(impactX, impactY, 26, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(239, 68, 68, 0.4)';
         ctx.fill();
         ctx.beginPath();
-        ctx.arc(sim.impact_point.x, sim.impact_point.y, 14, 0, Math.PI * 2);
+        ctx.arc(impactX, impactY, 14, 0, Math.PI * 2);
         ctx.fillStyle = '#facc15';
         ctx.fill();
         ctx.fillStyle = '#ffffff';
         ctx.font = 'bold 14px Pretendard, sans-serif';
-        ctx.fillText('💥 IMPACT', sim.impact_point.x - 32, sim.impact_point.y - 12);
+        ctx.fillText('💥 IMPACT', impactX - 32, impactY - 12);
         ctx.restore();
       }
 
