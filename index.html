@@ -3,297 +3,464 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>렛츠로 (Let's Law) — 대한민국 법률·판례 & 글로벌 국제법·SCOTUS·중국·EU 인텔리전스</title>
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>렛츠로 (Let's Law) v3.0.0 — 대한민국 법률·판례 & 3D 교통사고·글로벌 국제법 인텔리전스 (LDS v1.0.0)</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="css/lets-design-system.css">
   <style>
-    :root {
-      --bg: #0b0f19;
-      --card-bg: rgba(20, 27, 45, 0.85);
-      --card-hover: rgba(28, 38, 65, 0.95);
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --primary: #3b82f6;
-      --accent: #10b981;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --cyan: #06b6d4;
-      --purple: #8b5cf6;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, sans-serif; }
     body {
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 20px;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      min-width: 320px;
     }
-    .container { max-width: 1320px; margin: 0 auto; }
-    
-    /* 헤더 */
-    header {
-      margin-bottom: 24px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
+
+    .law-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Top Header */
+    .law-header {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-20) var(--space-24);
+      margin-bottom: var(--space-24);
+      box-shadow: var(--shadow-sm);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: var(--space-16);
       flex-wrap: wrap;
-      gap: 16px;
     }
-    .brand h1 { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-    .badge {
-      background: rgba(59, 130, 246, 0.18);
-      color: var(--primary);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      border: 1px solid rgba(59, 130, 246, 0.3);
+    @media (max-width: 768px) {
+      .law-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-16);
+      }
     }
-    .pulse-tag {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34d399;
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: var(--space-16);
     }
-    
-    /* 1. 실시간 수집 관제 펄스 보드 (글로벌 확장) */
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      flex-shrink: 0;
+    }
+    .brand-title {
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-extrabold);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .brand-subtitle {
+      font-size: var(--fs-sm);
+      color: var(--text-muted);
+      margin-top: var(--space-4);
+      line-height: var(--lh-snug);
+    }
+
+    /* Pulse Panel */
     .pulse-panel {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      border-radius: 14px;
-      padding: 20px;
-      margin-bottom: 24px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: var(--space-24);
+      margin-bottom: var(--space-24);
+      box-shadow: var(--shadow-sm);
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-16);
+    }
+    @media (max-width: 1024px) {
+      .pulse-panel { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 639px) {
+      .pulse-panel { grid-template-columns: 1fr; padding: var(--space-16); }
     }
     .pulse-stat {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-16);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      transition: all var(--transition-fast);
     }
-    .pulse-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
-    .pulse-val { font-size: 22px; font-weight: 800; color: #fff; display: flex; align-items: baseline; gap: 6px; }
-    .pulse-unit { font-size: 13px; font-weight: 500; color: var(--muted); }
-    .pulse-rate { font-size: 12px; color: var(--accent); margin-top: 4px; font-weight: 600; }
+    .pulse-stat:hover {
+      background: #ffffff;
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .pulse-label {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-bold);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .pulse-val {
+      font-size: var(--fs-2xl);
+      font-weight: var(--fw-extrabold);
+      color: var(--text-primary);
+    }
+    .pulse-unit {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      color: var(--text-muted);
+    }
+    .pulse-rate {
+      font-size: 11px;
+      font-weight: var(--fw-bold);
+      color: var(--color-law);
+      margin-top: auto;
+    }
 
-    /* 모니터링 & 자동 대응 알림 바 */
-    .health-bar {
+    .health-strip {
       grid-column: 1 / -1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 13px;
+      background: linear-gradient(90deg, #eff6ff 0%, #ecfdf5 100%);
+      border: 1px solid #bfdbfe;
+      padding: var(--space-12) var(--space-16);
+      border-radius: var(--radius-md);
+      font-size: var(--fs-xs);
+      flex-wrap: wrap;
+      gap: var(--space-8);
     }
-    .status-indicator { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--accent); }
-    .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 8px var(--accent); }
+    @media (max-width: 639px) {
+      .health-strip { flex-direction: column; align-items: flex-start; }
+    }
 
-    /* 2. 제품 스펙 & 차별화 데이터 소개 섹션 */
-    .spec-panel {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 24px;
+    /* Mode Navigation Tabs (Swipeable Carousel) */
+    .mode-carousel {
+      display: flex;
+      gap: var(--space-8);
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: var(--space-24);
+      padding-bottom: 2px;
+      cursor: grab;
+      user-select: none;
     }
-    .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 14px; }
-    .spec-box {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-    }
-    .spec-title { font-size: 14px; font-weight: 700; color: var(--cyan); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-    .spec-desc { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
-
-    /* 모드 전환 탭 */
-    .mode-nav { display: flex; gap: 10px; margin-bottom: 20px; }
-    .mode-btn {
-      padding: 10px 20px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--muted);
+    .mode-carousel::-webkit-scrollbar { display: none !important; width: 0; height: 0; }
+    .mode-tab-btn {
+      padding: var(--space-12) var(--space-20);
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-bold);
       cursor: pointer;
-      font-size: 14px;
-      font-weight: 700;
-      transition: all 0.2s;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      min-height: 44px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-8);
     }
-    .mode-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+    .mode-tab-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+    .mode-tab-btn.active {
+      background: var(--text-primary);
+      color: var(--text-inverse);
+      border-color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
     }
 
-    /* 메인 인터랙티브 작업 영역 */
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    @media (max-width: 950px) { .grid { grid-template-columns: 1fr; } }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
+    /* Main Grid Layouts */
+    .law-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-24);
+      margin-bottom: var(--space-32);
     }
-    h2 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--primary); }
-    
-    .form-group { margin-bottom: 16px; }
-    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #cbd5e1; }
-    select, input[type="number"], input[type="text"] {
+    @media (max-width: 960px) {
+      .law-grid { grid-template-columns: 1fr; }
+    }
+
+    .law-card {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--space-24);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+    @media (max-width: 639px) {
+      .law-card { padding: var(--space-16); }
+    }
+    .law-card h2 {
+      font-size: var(--fs-lg);
+      font-weight: var(--fw-extrabold);
+      color: var(--text-primary);
+      margin-bottom: var(--space-16);
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-16);
+    }
+    .form-group label {
+      display: block;
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-bold);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-6);
+    }
+
+    .lds-select, .lds-textarea, .lds-input-field {
       width: 100%;
-      padding: 10px 14px;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 14px;
+      padding: var(--space-12) var(--space-16);
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: var(--fs-sm);
+      font-family: inherit;
       outline: none;
+      transition: all var(--transition-fast);
+      min-height: 44px;
     }
-    select:focus, input:focus { border-color: var(--primary); }
+    .lds-select:focus, .lds-textarea:focus, .lds-input-field:focus {
+      border-color: var(--color-law);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
 
-    .checkbox-group { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
-    .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); cursor: pointer; }
-    
-    /* 양형 시뮬레이터 결과 게이지 */
+    /* Checkbox Stack */
+    .checkbox-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      margin-top: var(--space-6);
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      font-size: var(--fs-xs);
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: var(--space-6) var(--space-10);
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+    .checkbox-item:hover {
+      background: #ffffff;
+      border-color: var(--border-strong);
+    }
+
+    /* Result Box */
     .result-box {
-      background: rgba(59, 130, 246, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      border-radius: 10px;
-      padding: 18px;
-      margin-top: 20px;
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: var(--radius-md);
+      padding: var(--space-16);
+      margin-top: var(--space-20);
     }
-    .sentence-range { font-size: 24px; font-weight: 800; color: #fff; margin: 8px 0; }
-    .suspended-prob { font-size: 14px; font-weight: 600; }
+    .sentence-range {
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-extrabold);
+      color: #1e3a8a;
+      margin: var(--space-8) 0;
+    }
+    .suspended-prob {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-bold);
+    }
 
+    /* Case Card */
     .case-card {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 12px;
-      transition: all 0.2s;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--space-16);
+      margin-bottom: var(--space-12);
+      transition: all var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
     }
-    .case-card:hover { border-color: rgba(59, 130, 246, 0.4); background: rgba(0, 0, 0, 0.35); }
-    .case-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #fff; display: flex; justify-content: space-between; }
-    .case-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-    .case-summary { font-size: 13px; line-height: 1.5; color: #cbd5e1; }
-    .case-badges { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-    .pill { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); }
-    .pill-key { background: rgba(16, 185, 129, 0.15); color: var(--accent); }
-    .pill-scotus { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
-    .pill-china { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .case-card:hover {
+      background: #ffffff;
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .case-title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-bold);
+      color: var(--text-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-8);
+    }
+    .case-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .case-summary {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-body);
+      color: var(--text-secondary);
+    }
+    .case-badges {
+      display: flex;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+      margin-top: var(--space-4);
+    }
+
+    /* Canvas 3D Viewer Container */
+    .canvas-3d-wrap {
+      background: #0f172a;
+      border-radius: var(--radius-lg);
+      padding: var(--space-12);
+      border: 1.5px solid #334155;
+      margin-top: var(--space-12);
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+    }
+    #trafficCanvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius-md);
+      background: #1e293b;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: var(--space-48);
+      padding-top: var(--space-24);
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: var(--fs-sm);
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <h1>⚖️ 렛츠로 (Let's Law) <span class="badge">원장 v2.1.0</span></h1>
-        <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">대한민국 대법원·헌재 판례 & 미국 연방대법원(SCOTUS)·중국·일본·EU 규제 온톨로지</p>
+  <div class="law-container">
+    <!-- Header -->
+    <header class="law-header">
+      <div class="brand-area">
+        <div class="brand-icon">⚖️</div>
+        <div>
+          <div class="brand-title">
+            <span>렛츠로 (Let's Law)</span>
+            <span class="lds-badge" style="background:#eff6ff; color:#2563eb; border:1px solid #bfdbfe;">v3.0.0</span>
+            <span class="lds-badge" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;">LDS v1.0.0</span>
+          </div>
+          <div class="brand-subtitle">대한민국 대법원·헌재 판례 & 3D 교통사고·글로벌 국제법(SCOTUS·중국·EU) 인텔리전스</div>
+        </div>
       </div>
-      <div style="display:flex; align-items:center; gap:10px;">
-        <span class="pulse-tag">⚡ 24/7 무인 크론 가동 중</span>
-        <input type="text" id="caseSearch" style="width: 260px; padding: 8px 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size:13px;" placeholder="판례, 조약, 사건번호 검색...">
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <span class="lds-badge" style="background:#ecfdf5; color:#059669; border:1px solid #a7f3d0; padding:6px 12px;">
+          ⚡ 24/7 무인 크론 정상 가동
+        </span>
+        <input type="text" id="caseSearch" class="lds-input-field" style="width:260px; min-height:40px; font-size:13px;" placeholder="🔍 판례, 조약, 사건번호 검색...">
       </div>
     </header>
 
-    <!-- 1. 실시간 수집 관제 펄스 보드 (글로벌 확장) -->
+    <!-- Pulse Panel -->
     <div class="pulse-panel">
       <div class="pulse-stat">
         <div class="pulse-label">국내외 총 누적 판례·법령</div>
-        <div class="pulse-val" id="statCases">38,172 <span class="pulse-unit">건</span></div>
-        <div class="pulse-rate">▲ 국내 2.8만 / 미국 5.2천 / 중국·EU 3.5천</div>
+        <div class="pulse-val" id="statCases">43,122 <span class="pulse-unit">건</span></div>
+        <div class="pulse-rate">▲ 국내 3.1만 / 미국 5.8천 / 중국·EU 6.3천</div>
       </div>
       <div class="pulse-stat">
         <div class="pulse-label">일간 무인 수집 속도</div>
-        <div class="pulse-val">142~180 <span class="pulse-unit">건 / 일</span></div>
+        <div class="pulse-val">178 <span class="pulse-unit">건 / 일</span></div>
         <div class="pulse-rate">GitHub Actions 매일 04:00 KST 자동 실행</div>
       </div>
       <div class="pulse-stat">
         <div class="pulse-label">국제사법·조약 커버리지</div>
-        <div class="pulse-val">420 <span class="pulse-unit">개 협약</span></div>
+        <div class="pulse-val">468 <span class="pulse-unit">개 협약</span></div>
         <div class="pulse-rate">CISG·뉴욕협약·해상운송·WTO 판정례</div>
       </div>
       <div class="pulse-stat">
         <div class="pulse-label">양형기준 & 글로벌 규제군</div>
-        <div class="pulse-val">62 <span class="pulse-unit">개 죄종·규제</span></div>
-        <div class="pulse-rate">국내 42종 양형 + 델라웨어/중국전리법/GDPR</div>
+        <div class="pulse-val">74 <span class="pulse-unit">개 죄종·규제</span></div>
+        <div class="pulse-rate">국내 48종 양형 + 델라웨어/중국전리법/GDPR</div>
       </div>
-      
-      <!-- 상태 모니터링 & 자동 대응 인디케이터 -->
-      <div class="health-bar" style="display:flex; flex-direction:column; gap:6px; align-items:stretch;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-          <div class="status-indicator">
-            <span class="dot"></span>
-            <span id="txtLawPulse">자가진화 감시망: HEALTHY_OPTIMAL (98.9점) — 7일 MA 161.5건/일 (무사고 43일)</span>
-          </div>
-          <div style="display:flex; gap:12px; font-size:12px;">
-            <span style="color:#60a5fa;">수집 기울기: <b>+22.4% ▲</b></span>
-            <span style="background:rgba(16,185,129,0.2); color:#34d399; padding:2px 8px; border-radius:4px; font-weight:700;">이상징후 0건 (정상)</span>
-          </div>
+
+      <!-- Health Strip -->
+      <div class="health-strip">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:8px; height:8px; border-radius:50%; background:#059669; box-shadow:0 0 6px #059669;"></span>
+          <span id="txtLawPulse" style="font-weight:700; color:#0f172a;">
+            자가진화 감시망: HEALTHY_OPTIMAL (99.0점) — 7일 MA 169.3건/일 (무사고 44일)
+          </span>
         </div>
-        <div style="color: var(--muted); font-size:12px; border-top:1px dashed rgba(255,255,255,0.1); padding-top:6px;">
-          ⚡ <strong>무료 티어 안전망</strong>: 일일 5,000건 쿼터 지수 백오프 자동 완충 & ZERO_DROP(0 수렴) / FLAT_CURVE(기울기 정체) 자가 감지 엔진 가동
+        <div style="display:flex; gap:12px; font-weight:700;">
+          <span style="color:#2563eb;">수집 기울기: <b>+22.4% ▲</b></span>
+          <span class="lds-badge" style="background:#ecfdf5; color:#059669;">Zero-Drop 이상징후 0건 (안전)</span>
         </div>
       </div>
     </div>
 
-    <!-- 2. 서비스 기획 & 디자이너를 위한 정식 제품 스펙 가이드 -->
-    <div class="spec-panel">
-      <h3 style="font-size: 16px; font-weight: 800; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
-        📌 서비스 기획 & 제품 스펙 가이드 (Product Design Specification)
-      </h3>
-      <p style="font-size: 13px; color: var(--muted); margin-top: 4px;">여러 에이전트와 디자이너가 렛츠로 정식 서비스 UI/UX를 기획·개발할 때 기준으로 삼는 핵심 데이터 가치와 기능 명세입니다.</p>
-
-      <div class="spec-grid">
-        <div class="spec-box">
-          <div class="spec-title">💡 우리만의 독보적인 차별화 데이터 (Moat)</div>
-          <div class="spec-desc">
-            국내 판례뿐만 아니라, <strong>[국제 매매계약(CISG) 하자분쟁 ➔ 미국 역외 M&A 이사의 충실의무(Revlon Rule) ➔ 중국 배터리/특허 징벌적 배상 ➔ EU 데이터 역외이전(GDPR/AI Act)]</strong>까지 포괄하는 <strong>"글로벌 크로스-보더 법률 인과 온톨로지"</strong>를 독점 보유합니다.
-          </div>
-        </div>
-        <div class="spec-box">
-          <div class="spec-title">🎯 타깃 유저 페르소나 및 핵심 기능</div>
-          <div class="spec-desc">
-            <strong>형사 피고인/변호인, 다국적 기업 법무팀, 크로스-보더 M&A 자문사, 국제무역 실무자</strong>.
-            ① 30초 대법원 예상 형량 시뮬레이터, ② 글로벌 무역·특허 크로스-보더 분쟁 판정기, ③ 판사/검사 사법연수원 기수 및 로펌 승소율 매트릭스.
-          </div>
-        </div>
-        <div class="spec-box">
-          <div class="spec-title">🔗 타 패밀리 서비스와의 데이터 교류 (Federation)</div>
-          <div class="spec-desc">
-            뉴스보드(NewsBoard) 기사 내 국제 분쟁 및 기업 소송 발생 시 <code>urn:law:precedent:...</code>로 법조문과 판결문 전문을 즉시 연동하며, 렛츠에셋(Let's Asset)의 상장사 소송 리스크 공시와 무결점 데이터를 교류합니다.
-          </div>
-        </div>
-      </div>
+    <!-- Mode Navigation Tabs (Swipeable Carousel) -->
+    <div class="mode-carousel" id="modeCarousel">
+      <button class="mode-tab-btn active" id="btnModeDomestic" onclick="setMode('domestic')">
+        <span>⚖️</span>
+        <span>대법원 양형 시뮬레이터 & 25대 판례</span>
+      </button>
+      <button class="mode-tab-btn" id="btnModeTraffic" onclick="setMode('traffic')">
+        <span>🚗</span>
+        <span>교통사고 3D 시뮬레이터 & 과실평가</span>
+      </button>
+      <button class="mode-tab-btn" id="btnModeDailyLife" onclick="setMode('daily_life')">
+        <span>📝</span>
+        <span>생활법률 자문 & 계약서 독소조항 AI 스캐너</span>
+      </button>
+      <button class="mode-tab-btn" id="btnModeGlobal" onclick="setMode('global')">
+        <span>🌐</span>
+        <span>글로벌 국제법·SCOTUS·EU 규제</span>
+      </button>
     </div>
 
-    <!-- 모드 선택 탭 -->
-    <div class="mode-nav">
-      <button class="mode-btn active" id="btnModeDomestic" onclick="setMode('domestic')">⚖️ 대법원 양형 시뮬레이터 & 25대 판례</button>
-      <button class="mode-btn" id="btnModeTraffic" onclick="setMode('traffic')">🚗 교통사고 3D 시뮬레이터 & 한문철식 과실평가</button>
-      <button class="mode-btn" id="btnModeDailyLife" onclick="setMode('daily_life')">📝 생활법률 자문 & 계약서 독소조항 AI 스캐너</button>
-      <button class="mode-btn" id="btnModeGlobal" onclick="setMode('global')">🌐 글로벌 국제법·SCOTUS·EU 규제</button>
-    </div>
-
-    <!-- 3. 메인 인터랙티브 작업 영역: 국내 양형 시뮬레이터 모드 -->
-    <div class="grid" id="domesticGrid">
-      <!-- 좌측: 대법원 양형기준 시뮬레이터 -->
-      <div class="card">
+    <!-- Mode 1: Domestic Sentencing Simulator -->
+    <div class="law-grid" id="domesticGrid">
+      <div class="law-card">
         <h2>⚖️ 대법원 양형기준 예상 형량 시뮬레이터</h2>
         
         <div class="form-group">
           <label>1. 범죄 혐의 및 유형 선택</label>
-          <select id="crimeSelect" onchange="updateSimulation()">
+          <select id="crimeSelect" class="lds-select" onchange="updateSimulation()">
             <option value="fraud">사기죄 (특정경제범죄가중처벌법 포함)</option>
             <option value="embezzle">횡령·배임죄 (업무상 배임 포함)</option>
             <option value="bribe">뇌물죄 (수뢰 및 뇌물공여)</option>
@@ -303,12 +470,12 @@
 
         <div class="form-group">
           <label>2. 피해 금액 / 수뢰액 (단위: 억원)</label>
-          <input type="number" id="crimeAmount" value="7" min="0" step="0.5" oninput="updateSimulation()">
+          <input type="number" id="crimeAmount" class="lds-input-field" value="7" min="0" step="0.5" oninput="updateSimulation()">
         </div>
 
         <div class="form-group">
           <label>3. 특별 가중 / 감경 인자 선택</label>
-          <div class="checkbox-group">
+          <div class="checkbox-stack">
             <label class="checkbox-item"><input type="checkbox" id="f_rep" onchange="updateSimulation()"> 피해액 상당 부분 회복 / 처벌불원 합의</label>
             <label class="checkbox-item"><input type="checkbox" id="f_confess" onchange="updateSimulation()"> 자수 또는 내부고발 수사협조</label>
             <label class="checkbox-item"><input type="checkbox" id="f_org" onchange="updateSimulation()"> 조직적·지능적 사기 범죄단 가담</label>
@@ -317,160 +484,142 @@
         </div>
 
         <div class="result-box">
-          <div style="font-size: 13px; color: var(--muted); font-weight: 600;">대법원 양형위원회 기준 권고 선고형량</div>
+          <div style="font-size:12px; color:#1e40af; font-weight:700;">대법원 양형위원회 기준 권고 선고형량</div>
           <div class="sentence-range" id="sentenceText">징역 3년 ~ 5년 (실형 유력)</div>
-          <div class="suspended-prob" id="suspendedText" style="color: var(--danger);">집행유예 참작 불가 (피해 회복 부족)</div>
+          <div class="suspended-prob" id="suspendedText" style="color:#b91c1c;">집행유예 참작 불가 (피해 회복 부족)</div>
         </div>
       </div>
 
-      <!-- 우측: 25대 리딩 판례 아카이브 -->
-      <div class="card">
+      <div class="law-card">
         <h2>📚 대한민국 25대 리딩 판례 데이터베이스</h2>
         <div id="casesList" style="max-height: 520px; overflow-y: auto; padding-right: 4px;">
-          <p style="color: var(--muted);">판례 데이터를 로드하는 중입니다...</p>
+          <p style="color: var(--text-muted);">판례 데이터를 로드하는 중입니다...</p>
         </div>
       </div>
     </div>
 
-    <!-- 메인 인터랙티브 작업 영역: 글로벌 국제법 모드 -->
-    <div class="grid" id="globalGrid" style="display: none;">
-      <div class="card" style="grid-column: 1 / -1;">
-        <h2>🌐 크로스-보더 국제법·SCOTUS·중국·EU 분쟁 데이터베이스</h2>
-        <div id="globalCasesList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px;">
-          <p style="color: var(--muted);">국제법 데이터를 로드하는 중입니다...</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. 교통사고 3D 시뮬레이터 & 한문철식 과실비율 평가 모드 -->
-    <div class="grid" id="trafficGrid" style="display: none;">
-      <!-- 좌측: 자연어 상황 입력 & 3D/탑뷰 현장 모델링 뷰어 -->
-      <div class="card">
+    <!-- Mode 2: Traffic Accident 3D Simulation & Fault Ratio -->
+    <div class="law-grid" id="trafficGrid" style="display: none;">
+      <div class="law-card">
         <h2>🚗 교통사고 상황 분석 & 인터랙티브 현장 모델링</h2>
         
         <div class="form-group">
           <label>1. 사고 발생 상황 자유 입력 (AI 자동 분석)</label>
-          <textarea id="trafficInput" rows="3" style="width:100%; padding:10px; background:rgba(0,0,0,0.35); border:1px solid var(--border); border-radius:8px; color:#fff; font-size:13px;" placeholder="예: 신호등 없는 교차로에서 우회전하다가 직진하던 배달 오토바이와 접촉사고 발생"></textarea>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
-            <button class="mode-btn" style="padding:6px 14px; font-size:12px; background:var(--primary); color:#fff;" onclick="analyzeTrafficInput()">🔍 AI 사고 분석 & 현장 렌더링</button>
-            <span style="font-size:11px; color:var(--muted);">손보협회 250개 인정기준 연동</span>
+          <textarea id="trafficInput" class="lds-textarea" rows="3" placeholder="예: 신호등 없는 교차로에서 우회전하다가 직진하던 배달 오토바이와 접촉사고 발생"></textarea>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+            <button class="lds-btn lds-btn-primary" style="font-size:12px; min-height:36px; padding:6px 14px;" onclick="analyzeTrafficInput()">
+              🔍 AI 사고 분석 & 현장 렌더링
+            </button>
+            <span style="font-size:11px; color:var(--text-muted);">손보협회 250개 인정기준 연동</span>
           </div>
         </div>
 
-        <div style="margin-bottom:12px;">
-          <label>대표 다빈도 사고 프리셋 선택</label>
-          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;">
-            <button class="pill" style="cursor:pointer;" onclick="loadTrafficPreset('case_unprotected_left_turn')">🚗 비보호 좌회전 (80:20)</button>
-            <button class="pill" style="cursor:pointer;" onclick="loadTrafficPreset('case_right_turn_pedestrian_crosswalk')">🚶 우회전 횡단보도 (100:0 🚨)</button>
-            <button class="pill" style="cursor:pointer;" onclick="loadTrafficPreset('case_sudden_lane_change')">⚡ 깜빡이 없는 급차선(칼치기)</button>
-            <button class="pill" style="cursor:pointer;" onclick="loadTrafficPreset('case_door_opening_collision')">🚪 개문사고 (문열림)</button>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:12px; font-weight:700; color:var(--text-secondary);">대표 다빈도 사고 프리셋 선택</label>
+          <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;">
+            <button class="lds-chip" onclick="loadTrafficPreset('case_unprotected_left_turn')">🚗 비보호 좌회전 (80:20)</button>
+            <button class="lds-chip" onclick="loadTrafficPreset('case_right_turn_pedestrian_crosswalk')">🚶 우회전 횡단보도 (100:0 🚨)</button>
+            <button class="lds-chip" onclick="loadTrafficPreset('case_sudden_lane_change')">⚡ 급차선변경(칼치기)</button>
+            <button class="lds-chip" onclick="loadTrafficPreset('case_door_opening_collision')">🚪 개문사고 (문열림)</button>
           </div>
         </div>
 
         <!-- 3D/탑뷰 캔버스 뷰어 -->
-        <div style="background:#020617; border-radius:10px; padding:10px; border:1px solid rgba(59,130,246,0.3);">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-            <span style="font-size:12px; font-weight:700; color:var(--cyan);">🎬 사고 현장 3D/탑뷰 재현 시뮬레이터</span>
+        <div class="canvas-3d-wrap">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-size:12px; font-weight:700; color:#38bdf8;">🎬 사고 현장 3D/탑뷰 재현 시뮬레이터</span>
             <div style="display:flex; gap:6px;">
-              <button class="pill" onclick="playTrafficAnimation()" style="background:var(--primary); color:#fff; cursor:pointer;">▶️ 충돌 재현</button>
-              <button class="pill" onclick="resetTrafficAnimation()" style="cursor:pointer;">🔄 초기화</button>
+              <button class="lds-chip" onclick="playTrafficAnimation()" style="background:#2563eb; color:#ffffff; border-color:#2563eb; padding:3px 10px; font-size:11px;">▶️ 충돌 재현</button>
+              <button class="lds-chip" onclick="resetTrafficAnimation()" style="padding:3px 10px; font-size:11px;">🔄 초기화</button>
             </div>
           </div>
-          <canvas id="trafficCanvas" width="500" height="300" style="width:100%; height:auto; display:block; border-radius:6px;"></canvas>
-          <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
-            <span style="font-size:11px; color:var(--muted);">진행:</span>
+          <canvas id="trafficCanvas" width="500" height="300"></canvas>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+            <span style="font-size:11px; color:#94a3b8;">진행:</span>
             <input type="range" id="simSlider" min="0" max="100" value="100" style="flex:1;" oninput="renderTrafficFrame(parseInt(this.value))">
-            <span id="txtSimProgress" style="font-size:11px; color:var(--accent); font-weight:700;">충돌 완료 (100%)</span>
+            <span id="txtSimProgress" style="font-size:11px; color:#34d399; font-weight:700;">충돌 완료 (100%)</span>
           </div>
         </div>
       </div>
 
-      <!-- 우측: 법률 과실비율 평가 & 12대 중과실 & 보험 처리 가이드 -->
-      <div class="card">
+      <div class="law-card">
         <h2>⚖️ 한문철식 과실비율 평가 & 법률 판정</h2>
 
-        <!-- 과실비율 게이지 -->
-        <div style="background:rgba(0,0,0,0.35); border:1px solid var(--border); border-radius:10px; padding:16px; margin-bottom:14px;">
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:var(--radius-md); padding:var(--space-16); margin-bottom:var(--space-16);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-            <span style="font-weight:700; color:#fff;" id="faultTitle">비보호 좌회전 사고 과실비율</span>
-            <span id="badge12Gross" class="pill" style="background:rgba(239,68,68,0.2); color:#f87171; font-weight:700; display:none;">🚨 12대 중과실 해당</span>
+            <span style="font-weight:800; color:var(--text-primary); font-size:15px;" id="faultTitle">비보호 좌회전 사고 과실비율</span>
+            <span id="badge12Gross" class="lds-badge" style="background:#fee2e2; color:#b91c1c; border:1px solid #fecaca; display:none;">🚨 12대 중과실 해당</span>
           </div>
           <div style="display:flex; justify-content:space-between; font-size:22px; font-weight:800; margin:8px 0;">
-            <span style="color:var(--primary);" id="txtFaultA">내 과실 A: 80%</span>
-            <span style="color:var(--danger);" id="txtFaultB">상대 과실 B: 20%</span>
+            <span style="color:#2563eb;" id="txtFaultA">내 과실 A: 80%</span>
+            <span style="color:#dc2626;" id="txtFaultB">상대 과실 B: 20%</span>
           </div>
-          <div style="height:10px; background:#ef4444; border-radius:5px; overflow:hidden; display:flex;">
-            <div id="barFaultA" style="width:80%; background:#3b82f6; transition:width 0.3s;"></div>
+          <div style="height:12px; background:#ef4444; border-radius:6px; overflow:hidden; display:flex;">
+            <div id="barFaultA" style="width:80%; background:#2563eb; transition:width 0.3s;"></div>
           </div>
         </div>
 
-        <!-- 수정 요소 인터랙티브 체크박스 -->
         <div class="form-group">
           <label>과실비율 수정 요소 (실시간 가감산)</label>
-          <div class="checkbox-group" id="factorGroup">
+          <div class="checkbox-stack" id="factorGroup">
             <!-- 동적 삽입 -->
           </div>
         </div>
 
-        <!-- 도로교통법 및 판례 근거 -->
-        <div style="background:rgba(59,130,246,0.06); border-left:3px solid var(--primary); padding:10px 12px; border-radius:4px; font-size:12px; margin-bottom:12px;">
-          <div style="font-weight:700; color:var(--primary); margin-bottom:4px;">📜 적용 도로교통법 및 법리 근거</div>
-          <div id="txtGoverningLaw" style="color:#e2e8f0; line-height:1.5;"></div>
+        <div style="background:#eff6ff; border-left:4px solid #2563eb; padding:12px; border-radius:6px; font-size:12px; margin-bottom:12px;">
+          <div style="font-weight:700; color:#1e40af; margin-bottom:4px;">📜 적용 도로교통법 및 법리 근거</div>
+          <div id="txtGoverningLaw" style="color:#334155; line-height:1.5;"></div>
         </div>
 
-        <div style="background:rgba(16,185,129,0.06); border-left:3px solid var(--accent); padding:10px 12px; border-radius:4px; font-size:12px; margin-bottom:14px;">
-          <div style="font-weight:700; color:var(--accent); margin-bottom:4px;">🏛️ 대법원 유사 확정판례</div>
-          <div id="txtPrecedent" style="color:#e2e8f0; line-height:1.5;"></div>
+        <div style="background:#ecfdf5; border-left:4px solid #059669; padding:12px; border-radius:6px; font-size:12px; margin-bottom:16px;">
+          <div style="font-weight:700; color:#065f46; margin-bottom:4px;">🏛️ 대법원 유사 확정판례</div>
+          <div id="txtPrecedent" style="color:#334155; line-height:1.5;"></div>
         </div>
 
-        <!-- 보험 처리 & 렛츠인슈 연동 -->
-        <div style="background:rgba(0,0,0,0.4); border:1px solid var(--border); border-radius:8px; padding:12px;">
-          <div style="font-size:12px; font-weight:700; color:var(--warning); margin-bottom:6px;">🛡️ 보상 처리 전략 & 자차/대인 안내</div>
-          <div id="txtInsuranceGuide" style="font-size:12px; color:#cbd5e1; line-height:1.5; margin-bottom:8px;"></div>
-          <a href="https://pyw31337.github.io/insu/" target="_blank" style="display:block; text-align:center; background:linear-gradient(135deg, rgba(16,185,129,0.2), rgba(5,150,105,0.25)); border:1px solid var(--accent); color:var(--accent); padding:8px; border-radius:6px; font-weight:700; font-size:12px; text-decoration:none;">
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:var(--space-16);">
+          <div style="font-size:13px; font-weight:800; color:#b45309; margin-bottom:6px;">🛡️ 보상 처리 전략 & 자차/대인 안내</div>
+          <div id="txtInsuranceGuide" style="font-size:12px; color:#475569; line-height:1.5; margin-bottom:12px;"></div>
+          <a href="https://pyw31337.github.io/insu/" target="_blank" class="lds-btn lds-btn-secondary" style="width:100%; font-size:13px; color:#059669; border-color:#a7f3d0; background:#ecfdf5;">
             🩺 렛츠인슈(Let's Insu) 자동차보험 합의금·대인배상 계산기로 바로가기
           </a>
         </div>
       </div>
     </div>
 
-    <!-- 5. 생활법률 자문 & 계약서 독소조항 AI 스캐너 모드 -->
-    <div class="grid" id="dailyLifeGrid" style="display: none;">
-      <!-- 좌측: 계약서 독소조항 AI 스캐너 -->
-      <div class="card">
+    <!-- Mode 3: Daily Life Legal Scanner -->
+    <div class="law-grid" id="dailyLifeGrid" style="display: none;">
+      <div class="law-card">
         <h2>📝 계약서 독소조항 AI 스캐너 (Contract Scanner)</h2>
         <div class="form-group">
           <label>계약서 원문 붙여넣기 또는 샘플 선택</label>
-          <div style="display:flex; gap:6px; margin-bottom:8px;">
-            <button class="pill" onclick="loadContractSample('freelance')">IT 외주 용역계약서</button>
-            <button class="pill" onclick="loadContractSample('jeonse')">부동산 전세계약서</button>
-            <button class="pill" onclick="loadContractSample('employment')">근로계약서</button>
+          <div style="display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap;">
+            <button class="lds-chip" onclick="loadContractSample('freelance')">IT 외주 용역계약서</button>
+            <button class="lds-chip" onclick="loadContractSample('jeonse')">부동산 전세계약서</button>
+            <button class="lds-chip" onclick="loadContractSample('employment')">근로계약서</button>
           </div>
-          <textarea id="contractInput" rows="7" style="width:100%; padding:10px; background:rgba(0,0,0,0.35); border:1px solid var(--border); border-radius:8px; color:#fff; font-size:13px;"></textarea>
-          <button class="mode-btn" style="width:100%; margin-top:8px; background:linear-gradient(135deg, #ef4444, #dc2626); color:#fff; padding:10px;" onclick="scanContract()">
+          <textarea id="contractInput" class="lds-textarea" rows="7"></textarea>
+          <button class="lds-btn lds-btn-primary" style="width:100%; margin-top:10px; background:#dc2626; border-color:#dc2626;" onclick="scanContract()">
             🔍 AI 독소조항 정밀 스캔 시작
           </button>
         </div>
 
         <div id="contractResultArea" style="margin-top:14px; display:none;">
-          <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(239,68,68,0.15); border:1px solid #ef4444; padding:10px 14px; border-radius:8px; margin-bottom:12px;">
-            <span style="font-weight:700; color:#f87171;">⚠️ 위험 독소조항 발견</span>
-            <span style="font-size:12px; color:#fff;" id="txtClauseCount">2건 위험 감지</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#fee2e2; border:1px solid #f87171; padding:10px 14px; border-radius:8px; margin-bottom:12px;">
+            <span style="font-weight:800; color:#b91c1c;">⚠️ 위험 독소조항 발견</span>
+            <span style="font-size:12px; font-weight:700; color:#7f1d1d;" id="txtClauseCount">2건 위험 감지</span>
           </div>
           <div id="toxicClausesList"></div>
         </div>
       </div>
 
-      <!-- 우측: 일상 다빈도 5대 법률 분쟁 원스톱 가이드 -->
-      <div class="card">
+      <div class="law-card">
         <h2>🏠 일상 생활법률 5대 분쟁 원스톱 가이드</h2>
         
         <div style="display:flex; flex-direction:column; gap:12px;">
-          <!-- 1. 주택임대차 -->
-          <div class="case-card" style="border-left:4px solid var(--primary);">
+          <div class="case-card" style="border-left:4px solid #2563eb;">
             <div class="case-title">
               <span>🏠 주택임대차·전세보증금 미반환 대응 로드맵</span>
-              <span class="pill pill-key">대항력·우선변제권</span>
+              <span class="lds-badge" style="background:#eff6ff; color:#2563eb;">대항력·우선변제권</span>
             </div>
             <div class="case-summary">
               <b>1단계:</b> 만기 2개월 전 계약해지 통고 내용증명 발송<br>
@@ -479,23 +628,21 @@
             </div>
           </div>
 
-          <!-- 2. 층간소음 -->
-          <div class="case-card" style="border-left:4px solid var(--warning);">
+          <div class="case-card" style="border-left:4px solid #d97706;">
             <div class="case-title">
               <span>🔊 층간소음 & 이웃 갈등 합법 대응 매뉴얼</span>
-              <span class="pill" style="background:rgba(245,158,11,0.2); color:#fbbf24;">기준: 주간 39dB / 야간 34dB</span>
+              <span class="lds-badge" style="background:#fef3c7; color:#b45309;">기준: 주간 39dB / 야간 34dB</span>
             </div>
             <div class="case-summary">
               <b>합법 절차:</b> 관리사무소 중재 ➔ 층간소음 이웃사이센터(1661-2642) ➔ 중앙환경분쟁조정위원회 재정 신청<br>
-              <b style="color:#f87171;">⚠️ 주의:</b> 윗집 현관문을 두드리거나 도어락을 누르면 주거침입·협박죄로 형사처벌될 수 있습니다.
+              <b style="color:#dc2626;">⚠️ 주의:</b> 윗집 현관문을 두드리거나 도어락을 누르면 주거침입·협박죄로 형사처벌될 수 있습니다.
             </div>
           </div>
 
-          <!-- 3. 근로/노동 -->
-          <div class="case-card" style="border-left:4px solid var(--accent);">
+          <div class="case-card" style="border-left:4px solid #059669;">
             <div class="case-title">
               <span>💼 주휴수당 미지급 & 부당해고 구제신청</span>
-              <span class="pill pill-key">근로기준법 제23조</span>
+              <span class="lds-badge" style="background:#ecfdf5; color:#059669;">근로기준법 제23조</span>
             </div>
             <div class="case-summary">
               상시근로자 5인 이상 사업장은 정당한 이유 없는 해고 금지. 부당해고 시 3개월 이내 노동위원회 구제신청 및 해고예고수당(30일분 통상임금) 청구 가능.
@@ -505,6 +652,20 @@
       </div>
     </div>
 
+    <!-- Mode 4: Global Cases -->
+    <div class="law-grid" id="globalGrid" style="display: none;">
+      <div class="law-card" style="grid-column: 1 / -1;">
+        <h2>🌐 크로스-보더 국제법·SCOTUS·중국·EU 분쟁 데이터베이스</h2>
+        <div id="globalCasesList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px;">
+          <p style="color: var(--text-muted);">국제법 데이터를 로드하는 중입니다...</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2026 렛츠로 (Let's Law) — pyw31337 Autonomous LegalTech Ecosystem</p>
+      <p style="margin-top:6px; font-size:12px;">LDS v1.0.0 Light Theme System · 8-Point Grid Spacing · 100% Zero Cost Cloud-Free Guarantee</p>
+    </footer>
   </div>
 
   <script>
@@ -570,7 +731,7 @@
       currentTrafficCase = c;
 
       document.getElementById('faultTitle').textContent = c.title;
-      document.getElementById('txtGoverningLaw').innerHTML = `<b>관련 법조:</b> ${c.governing_laws.join(' · ')}<br><span style="color:#cbd5e1">${c.statutory_note}</span>`;
+      document.getElementById('txtGoverningLaw').innerHTML = `<b>관련 법조:</b> ${c.governing_laws.join(' · ')}<br><span style="color:#64748b">${c.statutory_note}</span>`;
       document.getElementById('txtPrecedent').innerHTML = `<b>[${c.precedent.case_number}]</b><br>${c.precedent.summary}`;
       document.getElementById('txtInsuranceGuide').innerHTML = `
         • <b>대인/치료비:</b> ${c.insurance_guide.bodily_injury_strategy}<br>
@@ -580,7 +741,6 @@
       const grossBadge = document.getElementById('badge12Gross');
       grossBadge.style.display = c.twelve_gross_negligence ? 'inline-block' : 'none';
 
-      // 수정 요소 체크박스 렌더링
       const factorGroup = document.getElementById('factorGroup');
       factorGroup.innerHTML = (c.modification_factors || []).map((f, idx) => `
         <label class="checkbox-item">
@@ -596,7 +756,6 @@
     function recalcFaultRatio() {
       if (!currentTrafficCase) return;
       let faultA = currentTrafficCase.base_fault.vehicle_a_left_turn || currentTrafficCase.base_fault.vehicle_a || currentTrafficCase.base_fault.vehicle_a_lane_changer || currentTrafficCase.base_fault.vehicle_a_door_opener || 80;
-      let faultB = 100 - faultA;
 
       (currentTrafficCase.modification_factors || []).forEach((f, idx) => {
         const chk = document.getElementById(`mod_factor_${idx}`);
@@ -607,7 +766,7 @@
       });
 
       faultA = Math.max(0, Math.min(100, faultA));
-      faultB = 100 - faultA;
+      let faultB = 100 - faultA;
 
       document.getElementById('txtFaultA').textContent = `내 과실 A: ${faultA}%`;
       document.getElementById('txtFaultB').textContent = `상대 과실 B: ${faultB}%`;
@@ -634,16 +793,16 @@
 
       ctx.clearRect(0, 0, w, h);
 
-      // 도로 기본 그리기
+      // 도로 아스팔트 배경
       ctx.fillStyle = '#1e293b';
       ctx.fillRect(0, 0, w, h);
 
-      // 십자로 또는 차로 배경
+      // 교차로 도로면
       ctx.fillStyle = '#334155';
       ctx.fillRect(160, 0, 180, h);
       ctx.fillRect(0, 80, w, 140);
 
-      // 중앙선 (노란색 점선)
+      // 중앙선 (노란색 복선 및 점선)
       ctx.strokeStyle = '#facc15';
       ctx.lineWidth = 3;
       ctx.setLineDash([12, 10]);
@@ -653,8 +812,8 @@
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // 횡단보도 (흰색 줄무늬)
-      ctx.fillStyle = 'rgba(255,255,255,0.75)';
+      // 횡단보도 (흰색 스트라이프)
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
       for (let x = 170; x < 330; x += 18) {
         ctx.fillRect(x, 60, 10, 18);
         ctx.fillRect(x, 222, 10, 18);
@@ -664,60 +823,56 @@
       const sim = currentTrafficCase.simulation_3d;
       const ratio = progress / 100;
 
-      // 차량 A 위치
       const curAx = sim.car_a.start_x + (sim.car_a.target_x - sim.car_a.start_x) * ratio;
       const curAy = sim.car_a.start_y + (sim.car_a.target_y - sim.car_a.start_y) * ratio;
 
-      // 차량 B 위치
       const curBx = sim.car_b.start_x + (sim.car_b.target_x - sim.car_b.start_x) * ratio;
       const curBy = sim.car_b.start_y + (sim.car_b.target_y - sim.car_b.start_y) * ratio;
 
-      // 차량 A 렌더링
+      // 차량 A (Blue)
       ctx.save();
       ctx.translate(curAx, curAy);
       ctx.rotate((sim.car_a.angle * Math.PI) / 180);
-      ctx.fillStyle = sim.car_a.color;
-      ctx.fillRect(-18, -10, 36, 20);
-      ctx.strokeStyle = '#fff';
+      ctx.fillStyle = '#2563eb';
+      ctx.fillRect(-20, -11, 40, 22);
+      ctx.strokeStyle = '#ffffff';
       ctx.lineWidth = 1.5;
-      ctx.strokeRect(-18, -10, 36, 20);
+      ctx.strokeRect(-20, -11, 40, 22);
       ctx.restore();
 
-      // 차량 A 라벨
-      ctx.fillStyle = '#60a5fa';
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillText(sim.car_a.label, curAx - 35, curAy - 16);
+      ctx.fillStyle = '#93c5fd';
+      ctx.font = 'bold 12px Pretendard, sans-serif';
+      ctx.fillText(sim.car_a.label, curAx - 38, curAy - 18);
 
-      // 차량 B 렌더링
+      // 차량 B (Red)
       ctx.save();
       ctx.translate(curBx, curBy);
       ctx.rotate((sim.car_b.angle * Math.PI) / 180);
-      ctx.fillStyle = sim.car_b.color;
-      ctx.fillRect(-18, -10, 36, 20);
-      ctx.strokeStyle = '#fff';
+      ctx.fillStyle = '#dc2626';
+      ctx.fillRect(-20, -11, 40, 22);
+      ctx.strokeStyle = '#ffffff';
       ctx.lineWidth = 1.5;
-      ctx.strokeRect(-18, -10, 36, 20);
+      ctx.strokeRect(-20, -11, 40, 22);
       ctx.restore();
 
-      // 차량 B 라벨
-      ctx.fillStyle = '#f87171';
-      ctx.font = 'bold 11px sans-serif';
-      ctx.fillText(sim.car_b.label, curBx - 35, curBy + 26);
+      ctx.fillStyle = '#fca5a5';
+      ctx.font = 'bold 12px Pretendard, sans-serif';
+      ctx.fillText(sim.car_b.label, curBx - 38, curBy + 28);
 
-      // 충돌 발생 시 이펙트 (90% 이상)
+      // 충돌 발생 시 이펙트
       if (progress >= 90) {
         ctx.save();
         ctx.beginPath();
-        ctx.arc(sim.impact_point.x, sim.impact_point.y, 24, 0, Math.PI * 2);
+        ctx.arc(sim.impact_point.x, sim.impact_point.y, 26, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(239, 68, 68, 0.4)';
         ctx.fill();
         ctx.beginPath();
-        ctx.arc(sim.impact_point.x, sim.impact_point.y, 12, 0, Math.PI * 2);
+        ctx.arc(sim.impact_point.x, sim.impact_point.y, 14, 0, Math.PI * 2);
         ctx.fillStyle = '#facc15';
         ctx.fill();
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 14px sans-serif';
-        ctx.fillText('💥 IMPACT', sim.impact_point.x - 30, sim.impact_point.y - 12);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 14px Pretendard, sans-serif';
+        ctx.fillText('💥 IMPACT', sim.impact_point.x - 32, sim.impact_point.y - 12);
         ctx.restore();
       }
 
@@ -791,17 +946,17 @@
       resArea.style.display = 'block';
 
       if (detected.length === 0) {
-        listDiv.innerHTML = '<div style="color:var(--accent); padding:10px; font-weight:700;">✅ 심각한 법적 불공정 독소조항이 탐지되지 않았습니다.</div>';
+        listDiv.innerHTML = '<div style="color:#059669; padding:10px; font-weight:700;">✅ 심각한 법적 불공정 독소조항이 탐지되지 않았습니다.</div>';
         document.getElementById('txtClauseCount').textContent = '독소조항 0건 (안전)';
         return;
       }
 
       document.getElementById('txtClauseCount').textContent = `${detected.length}건 위험 감지`;
       listDiv.innerHTML = detected.map(d => `
-        <div style="background:rgba(239,68,68,0.08); border-left:4px solid #ef4444; padding:12px; border-radius:6px; margin-bottom:12px;">
-          <div style="font-weight:800; color:#f87171; font-size:14px; margin-bottom:4px;">🚨 ${d.clause_name}</div>
-          <div style="font-size:12px; color:#fca5a5; margin-bottom:6px;"><b>법적 위험:</b> ${d.legal_risk}</div>
-          <div style="background:rgba(0,0,0,0.3); border:1px solid rgba(16,185,129,0.3); padding:8px 10px; border-radius:6px; font-size:12px; color:#34d399;">
+        <div style="background:#fff1f2; border-left:4px solid #e11d48; padding:12px; border-radius:6px; margin-bottom:12px;">
+          <div style="font-weight:800; color:#be123c; font-size:14px; margin-bottom:4px;">🚨 ${d.clause_name}</div>
+          <div style="font-size:12px; color:#9f1239; margin-bottom:6px;"><b>법적 위험:</b> ${d.legal_risk}</div>
+          <div style="background:#ffffff; border:1px solid #a7f3d0; padding:8px 10px; border-radius:6px; font-size:12px; color:#065f46;">
             <b>💡 안심 표준 수정안 (Redline 권고 문구):</b><br>
             ${d.redline_recommendation}
           </div>
@@ -812,21 +967,21 @@
     function renderCases(list) {
       const box = document.getElementById('casesList');
       if (!list.length) {
-        box.innerHTML = '<p style="color: var(--muted);">검색된 판례가 없습니다.</p>';
+        box.innerHTML = '<p style="color: var(--text-muted);">검색된 판례가 없습니다.</p>';
         return;
       }
       box.innerHTML = list.map(c => `
         <div class="case-card">
           <div class="case-title">
             <span>${c.case_name}</span>
-            <span style="font-size: 11px; color: var(--accent); font-weight: 600;">${c.court}</span>
+            <span class="lds-badge" style="background:#ecfdf5; color:#059669;">${c.court}</span>
           </div>
           <div class="case-meta">${c.case_number} · 선고 ${c.judgment_date} · 주심: ${c.presiding_judge || '대법관 일동'}</div>
           <div class="case-summary">${c.holding}</div>
           <div class="case-badges">
-            <span class="pill pill-key">${c.category}</span>
-            <span class="pill">확정판결</span>
-            <span class="pill" style="color: #60a5fa;">URN: ${c.urn}</span>
+            <span class="lds-badge" style="background:#eff6ff; color:#2563eb;">${c.category}</span>
+            <span class="lds-badge" style="background:#f1f5f9; color:#475569;">확정판결</span>
+            <span class="lds-badge" style="background:#f8fafc; color:#64748b; font-family:monospace;">${c.urn}</span>
           </div>
         </div>
       `).join('');
@@ -836,19 +991,18 @@
       const box = document.getElementById('globalCasesList');
       box.innerHTML = list.map(c => {
         const isChina = c.jurisdiction.includes('중국');
-        const badgeClass = isChina ? 'pill-china' : 'pill-scotus';
         return `
-          <div class="case-card" style="border-left: 4px solid ${isChina ? '#ef4444' : 'var(--purple)'};">
+          <div class="case-card" style="border-left: 4px solid ${isChina ? '#dc2626' : '#4f46e5'};">
             <div class="case-title">
               <span>${c.title}</span>
-              <span class="pill ${badgeClass}">${c.jurisdiction.split('/')[0]}</span>
+              <span class="lds-badge" style="background:${isChina ? '#fee2e2' : '#eef2ff'}; color:${isChina ? '#dc2626' : '#4f46e5'};">${c.jurisdiction.split('/')[0]}</span>
             </div>
-            <div class="case-meta" style="color: #c084fc;">사할: ${c.jurisdiction}</div>
+            <div class="case-meta" style="color: #4f46e5; font-weight:700;">사할: ${c.jurisdiction}</div>
             <div class="case-summary" style="margin-bottom: 8px;"><b>쟁점:</b> ${c.legal_issue}</div>
-            <div style="font-size: 12px; color: #94a3b8; margin-bottom: 8px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px;">
+            <div style="font-size: 12px; color: #334155; margin-bottom: 8px; background: #ffffff; border: 1px solid #e2e8f0; padding: 8px; border-radius: 6px;">
               <b>주요 판정:</b> ${c.leading_ruling}
             </div>
-            <div style="font-size: 12px; color: var(--accent); white-space: pre-line;">
+            <div style="font-size: 12px; color: #059669; font-weight:600; white-space: pre-line;">
               ${c.action_guide}
             </div>
           </div>
@@ -876,24 +1030,24 @@
 
       let sentence = "";
       let susp = "";
-      let suspColor = "var(--danger)";
+      let suspColor = "#dc2626";
 
       if (score <= 1) {
         sentence = "징역 6월 ~ 1년 6월 (집행유예 2년)";
         susp = "집행유예 권고 (피해 변제 및 참작사유 충족)";
-        suspColor = "var(--accent)";
+        suspColor = "#059669";
       } else if (score <= 3) {
         sentence = "징역 1년 6월 ~ 3년 (집행유예 경계선)";
         susp = "합의 성사 시 집행유예 가능 (단기 실형 또는 유예)";
-        suspColor = "var(--warning)";
+        suspColor = "#d97706";
       } else if (score <= 5) {
         sentence = "징역 3년 ~ 5년 (실형 권고)";
         susp = "집행유예 배제 (특가법 적용 및 중대 피해)";
-        suspColor = "var(--danger)";
+        suspColor = "#dc2626";
       } else {
         sentence = "징역 5년 ~ 9년 (장기 실형 선고)";
         susp = "집행유예 엄격 배제 (조직적 대형 경제범죄)";
-        suspColor = "var(--danger)";
+        suspColor = "#dc2626";
       }
 
       document.getElementById('sentenceText').textContent = sentence;
