@@ -10,17 +10,26 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="css/lets-design-system.css">
   <style>
+    html, body {
+      box-sizing: border-box;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
     body {
       background: var(--bg-page);
       color: var(--text-primary);
       overflow-x: hidden;
-      min-width: 320px;
+      min-width: 0;
+      width: 100%;
     }
 
     .law-container {
       max-width: 1440px;
       margin: 0 auto;
       width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      overflow-x: hidden;
     }
 
     /* Top Header */
@@ -353,6 +362,15 @@
       border: 1.5px solid #334155;
       margin-top: var(--space-12);
       box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .canvas-3d-wrap canvas {
+      max-width: 100% !important;
+      height: auto !important;
+      display: block;
+      margin: 0 auto;
     }
     #trafficCanvas {
       width: 100%;
@@ -734,12 +752,20 @@
       if (!c) return;
       currentTrafficCase = c;
 
-      document.getElementById('faultTitle').textContent = c.title;
-      document.getElementById('txtGoverningLaw').innerHTML = `<b>관련 법조:</b> ${c.governing_laws.join(' · ')}<br><span style="color:#64748b">${c.statutory_note}</span>`;
-      document.getElementById('txtPrecedent').innerHTML = `<b>[${c.precedent.case_number}]</b><br>${c.precedent.summary}`;
+      document.getElementById('faultTitle').textContent = c.title || '교통사고 과실평가';
+      const laws = Array.isArray(c.governing_laws) ? c.governing_laws.join(' · ') : (c.governing_laws || '도로교통법');
+      const note = c.statutory_note || '';
+      document.getElementById('txtGoverningLaw').innerHTML = `<b>관련 법조:</b> ${laws}<br><span style="color:#64748b">${note}</span>`;
+
+      const precCase = c.precedent?.case_number || '대법원 판례 확정';
+      const precSumm = c.precedent?.summary || (typeof c.precedent === 'string' ? c.precedent : '유사 판례 확정');
+      document.getElementById('txtPrecedent').innerHTML = `<b>[${precCase}]</b><br>${precSumm}`;
+
+      const injuryStrategy = c.insurance_guide?.bodily_injury_strategy || c.insurance_action || '대인 배상 및 치료비 과실상계 적용';
+      const propDamage = c.insurance_guide?.property_damage || c.insurance_guide?.settlement_formula || c.insurance_action || '대물 배상 및 자차 처리';
       document.getElementById('txtInsuranceGuide').innerHTML = `
-        • <b>대인/치료비:</b> ${c.insurance_guide.bodily_injury_strategy}<br>
-        • <b>대물/자차:</b> ${c.insurance_guide.property_damage || c.insurance_guide.settlement_formula || ''}
+        • <b>대인/치료비:</b> ${injuryStrategy}<br>
+        • <b>대물/자차:</b> ${propDamage}
       `;
 
       const grossBadge = document.getElementById('badge12Gross');
@@ -759,7 +785,13 @@
 
     function recalcFaultRatio() {
       if (!currentTrafficCase) return;
-      let faultA = currentTrafficCase.base_fault.vehicle_a_left_turn || currentTrafficCase.base_fault.vehicle_a || currentTrafficCase.base_fault.vehicle_a_lane_changer || currentTrafficCase.base_fault.vehicle_a_door_opener || 80;
+      let faultA = 80;
+      if (currentTrafficCase.base_fault && typeof currentTrafficCase.base_fault === 'object') {
+        const vals = Object.values(currentTrafficCase.base_fault);
+        if (vals.length > 0 && typeof vals[0] === 'number') {
+          faultA = vals[0];
+        }
+      }
 
       (currentTrafficCase.modification_factors || []).forEach((f, idx) => {
         const chk = document.getElementById(`mod_factor_${idx}`);
