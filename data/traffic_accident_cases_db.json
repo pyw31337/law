@@ -333,6 +333,31 @@
         "bodily_injury_strategy": "대인배상 전액 보상 및 선행 차량 대물 100% 자차 처리 불요. (피해자 치료비 전액 보장 및 과실상계)",
         "property_damage": "차량 수리비 과실비율에 따른 대물배상 청구 및 자차보험 처리",
         "premium_surcharge": "과실비율 50% 이상 시 사고점수 1점 할증"
+      },
+      "simulation_3d": {
+        "road": "straight_road",
+        "car_a": {
+          "start_x": 80,
+          "start_y": 150,
+          "target_x": 210,
+          "target_y": 150,
+          "angle": 0,
+          "color": "#3b82f6",
+          "label": "내 차량 A (후미 추돌)"
+        },
+        "car_b": {
+          "start_x": 250,
+          "start_y": 150,
+          "target_x": 250,
+          "target_y": 150,
+          "angle": 0,
+          "color": "#ef4444",
+          "label": "앞 차량 B (정차/선행)"
+        },
+        "impact_point": {
+          "x": 230,
+          "y": 150
+        }
       }
     },
     {
@@ -372,6 +397,31 @@
         "bodily_injury_strategy": "가해자 형사합의 필수(운전자보험 형사합의금 지원금 청구), 피해자 전액 대인/대물 100% 배상. (피해자 치료비 전액 보장 및 과실상계)",
         "property_damage": "차량 수리비 과실비율에 따른 대물배상 청구 및 자차보험 처리",
         "premium_surcharge": "과실비율 50% 이상 시 사고점수 1점 할증"
+      },
+      "simulation_3d": {
+        "road": "4way_intersection",
+        "car_a": {
+          "start_x": 250,
+          "start_y": 280,
+          "target_x": 250,
+          "target_y": 150,
+          "angle": -90,
+          "color": "#3b82f6",
+          "label": "내 차량 A (신호위반)"
+        },
+        "car_b": {
+          "start_x": 50,
+          "start_y": 150,
+          "target_x": 220,
+          "target_y": 150,
+          "angle": 0,
+          "color": "#ef4444",
+          "label": "정상주행 차량 B (직진)"
+        },
+        "impact_point": {
+          "x": 250,
+          "y": 150
+        }
       }
     },
     {
@@ -411,6 +461,31 @@
         "bodily_injury_strategy": "가해자 형사합의 필요, 피해차량 전손 또는 수리비 전액 가해자 대물보험 100% 직불. (피해자 치료비 전액 보장 및 과실상계)",
         "property_damage": "차량 수리비 과실비율에 따른 대물배상 청구 및 자차보험 처리",
         "premium_surcharge": "과실비율 50% 이상 시 사고점수 1점 할증"
+      },
+      "simulation_3d": {
+        "road": "straight_road",
+        "car_a": {
+          "start_x": 100,
+          "start_y": 130,
+          "target_x": 220,
+          "target_y": 170,
+          "angle": 20,
+          "color": "#3b82f6",
+          "label": "내 차량 A (중앙선 침범)"
+        },
+        "car_b": {
+          "start_x": 400,
+          "start_y": 170,
+          "target_x": 260,
+          "target_y": 170,
+          "angle": 180,
+          "color": "#ef4444",
+          "label": "마주오던 차량 B (직진)"
+        },
+        "impact_point": {
+          "x": 240,
+          "y": 170
+        }
       }
     },
     {
@@ -454,6 +529,31 @@
         "bodily_injury_strategy": "자차보험 처리 후 구상권 행사 권장, 분심위 또는 소송 전 7:3 협의 유효. (피해자 치료비 전액 보장 및 과실상계)",
         "property_damage": "차량 수리비 과실비율에 따른 대물배상 청구 및 자차보험 처리",
         "premium_surcharge": "과실비율 50% 이상 시 사고점수 1점 할증"
+      },
+      "simulation_3d": {
+        "road": "parking_lot",
+        "car_a": {
+          "start_x": 180,
+          "start_y": 80,
+          "target_x": 230,
+          "target_y": 150,
+          "angle": 45,
+          "color": "#3b82f6",
+          "label": "내 차량 A (주차면 출차)"
+        },
+        "car_b": {
+          "start_x": 400,
+          "start_y": 150,
+          "target_x": 260,
+          "target_y": 150,
+          "angle": 180,
+          "color": "#ef4444",
+          "label": "통로 직진 차량 B"
+        },
+        "impact_point": {
+          "x": 240,
+          "y": 150
+        }
       }
     }
   ]

@@ -234,9 +234,25 @@
       font-weight: var(--fw-extrabold);
       color: var(--text-primary);
       margin-bottom: var(--space-16);
-      display: flex;
-      align-items: center;
-      gap: var(--space-8);
+      display: block;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      max-width: 100%;
+    }
+    @media (max-width: 639px) {
+      .law-card h2 {
+        font-size: var(--fs-md);
+      }
+      .law-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-16);
+      }
+      .law-card {
+        padding: var(--space-16) !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+      }
     }
 
     .form-group {
@@ -856,14 +872,20 @@
       }
 
       // 시뮬레이션 데이터
-      const sim = currentTrafficCase.simulation_3d;
+      const sim = currentTrafficCase.simulation_3d || {
+        road: 'straight',
+        car_a: { start_x: 80, start_y: 150, target_x: 210, target_y: 150, angle: 0, label: '내 차량 A' },
+        car_b: { start_x: 250, start_y: 150, target_x: 250, target_y: 150, angle: 0, label: '상대 차량 B' }
+      };
+      if (!sim.car_a) sim.car_a = { start_x: 80, start_y: 150, target_x: 210, target_y: 150, angle: 0, label: '내 차량 A' };
+      if (!sim.car_b) sim.car_b = { start_x: 250, start_y: 150, target_x: 250, target_y: 150, angle: 0, label: '상대 차량 B' };
       const ratio = progress / 100;
 
-      const curAx = sim.car_a.start_x + (sim.car_a.target_x - sim.car_a.start_x) * ratio;
-      const curAy = sim.car_a.start_y + (sim.car_a.target_y - sim.car_a.start_y) * ratio;
+      const curAx = (sim.car_a.start_x || 80) + ((sim.car_a.target_x || 210) - (sim.car_a.start_x || 80)) * ratio;
+      const curAy = (sim.car_a.start_y || 150) + ((sim.car_a.target_y || 150) - (sim.car_a.start_y || 150)) * ratio;
 
-      const curBx = sim.car_b.start_x + (sim.car_b.target_x - sim.car_b.start_x) * ratio;
-      const curBy = sim.car_b.start_y + (sim.car_b.target_y - sim.car_b.start_y) * ratio;
+      const curBx = (sim.car_b.start_x || 250) + ((sim.car_b.target_x || 250) - (sim.car_b.start_x || 250)) * ratio;
+      const curBy = (sim.car_b.start_y || 150) + ((sim.car_b.target_y || 150) - (sim.car_b.start_y || 150)) * ratio;
 
       // 차량 A (Blue)
       ctx.save();
