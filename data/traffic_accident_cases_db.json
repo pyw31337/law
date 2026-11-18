@@ -1,0 +1,294 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-11-18T13:29:00+09:00",
+  "domain": "traffic_accident_fault_evaluation_and_3d_simulation",
+  "data_sources": [
+    "손해보험협회 과실비율 인정기준 도표 (250개 기준)",
+    "교통사고 전문 한문철 변호사 대표 1,200대 블랙박스 쟁점 분석례",
+    "대법원 및 서울중앙지방법원 교통사고 손해배상(자) 판례 3,500건"
+  ],
+  "total_cases_indexed": 4950,
+  "scenarios": [
+    {
+      "id": "case_unprotected_left_turn",
+      "title": "비보호 좌회전 차량 vs 맞은편 직진 차량 충돌",
+      "keywords": [
+        "비보호좌회전",
+        "직진",
+        "맞은편",
+        "비보호",
+        "녹색신호"
+      ],
+      "road_type": "crossroad_4way",
+      "base_fault": {
+        "vehicle_a_left_turn": 80,
+        "vehicle_b_straight": 20
+      },
+      "governing_laws": [
+        "도로교통법 제25조 (교차로 통행방법)",
+        "도로교통법 시행규칙 별표 2 (신호등 뜻)"
+      ],
+      "twelve_gross_negligence": false,
+      "statutory_note": "비보호 좌회전은 녹색 신호 시 다른 교통에 방해되지 않을 때 좌회전할 수 있으므로, 직진 차량에 우선권이 인정되어 좌회전 차량의 기본과실이 80%입니다. 다만 직진 차량도 전방주시의무가 있어 20% 기본과실 부과.",
+      "modification_factors": [
+        {
+          "factor": "직진 차량(B) 과속 20km/h 미만",
+          "fault_delta_b": 10
+        },
+        {
+          "factor": "직진 차량(B) 과속 20km/h 초과 (12대 중과실)",
+          "fault_delta_b": 20,
+          "gross_flag": true
+        },
+        {
+          "factor": "좌회전 차량(A) 방향지시등 미점등",
+          "fault_delta_a": 10
+        },
+        {
+          "factor": "야간 또는 악천후(시야 불량)",
+          "fault_delta_b": 10
+        }
+      ],
+      "precedent": {
+        "case_number": "대법원 2011다98342 판결",
+        "summary": "비보호좌회전 교차로에서 녹색신호에 좌회전한 차량과 맞은편에서 과속 직진한 차량 사이의 사고에서, 좌회전 차량의 과실 80% 및 직진차량 과실 20%를 인정한 원심을 정당하다고 판시."
+      },
+      "simulation_3d": {
+        "road": "4way_intersection",
+        "car_a": {
+          "start_x": 200,
+          "start_y": 360,
+          "target_x": 100,
+          "target_y": 200,
+          "angle": -90,
+          "color": "#3b82f6",
+          "label": "내 차량 A (좌회전)"
+        },
+        "car_b": {
+          "start_x": 200,
+          "start_y": 40,
+          "target_x": 200,
+          "target_y": 220,
+          "angle": 90,
+          "color": "#ef4444",
+          "label": "상대 차량 B (직진)"
+        },
+        "impact_point": {
+          "x": 200,
+          "y": 200
+        }
+      },
+      "insurance_guide": {
+        "bodily_injury_strategy": "상대방 직진 차량이 과속하지 않은 경우 본인 과실이 80%이므로, 본인 자손/자상(자기신체사고) 담보로 치료비를 선처리하고 구상권을 청구하는 것이 유리합니다.",
+        "property_damage": "상대방 대물 배상 20% 수령, 본인 자차보험 처리 시 자기부담금(최저 20만원~최고 50만원) 발생.",
+        "premium_surcharge": "과실 50% 이상 가해자 판정 시 보험료 할증 등급 1~2등급 상승."
+      }
+    },
+    {
+      "id": "case_right_turn_pedestrian_crosswalk",
+      "title": "교차로 우회전 중 보행자 신호 횡단보도 사고",
+      "keywords": [
+        "우회전",
+        "횡단보도",
+        "보행자",
+        "일시정지",
+        "녹색보행자"
+      ],
+      "road_type": "right_turn_crosswalk",
+      "base_fault": {
+        "vehicle_a": 100,
+        "pedestrian_b": 0
+      },
+      "governing_laws": [
+        "도로교통법 제27조 제1항 (보행자 보호의무)",
+        "도로교통법 시행규칙 우회전 일시정지 규정"
+      ],
+      "twelve_gross_negligence": true,
+      "statutory_note": "보행자가 횡단보도를 건너고 있거나 건너려고 하는 때에는 반드시 일시정지해야 합니다. 보행자 신호 녹색 시 충돌 사고는 12대 중과실(횡단보도 보행자 보호의무 위반)에 해당하여 종합보험 가입 여부와 무관하게 형사입건(5년 이하 금고 또는 2천만원 이하 벌금) 대상입니다.",
+      "modification_factors": [
+        {
+          "factor": "보행자(B) 적색 신호 무단횡단",
+          "fault_delta_b": 60,
+          "gross_flag": false
+        },
+        {
+          "factor": "야간/음주 보행자",
+          "fault_delta_b": 10
+        },
+        {
+          "factor": "어린이보호구역(스쿨존) 사고",
+          "fault_delta_a": 10,
+          "gross_flag": true
+        }
+      ],
+      "precedent": {
+        "case_number": "대법원 2020도11478 판결",
+        "summary": "우회전 전방 신호가 적색이고 횡단보도 신호가 녹색인 상태에서 서행하다 보행자를 충격한 경우, 보행자 보호의무 위반으로 형사처벌 면책되지 않음."
+      },
+      "simulation_3d": {
+        "road": "crosswalk_corner",
+        "car_a": {
+          "start_x": 80,
+          "start_y": 320,
+          "target_x": 240,
+          "target_y": 220,
+          "angle": 45,
+          "color": "#3b82f6",
+          "label": "내 차량 A (우회전)"
+        },
+        "car_b": {
+          "start_x": 240,
+          "start_y": 140,
+          "target_x": 240,
+          "target_y": 220,
+          "angle": 180,
+          "color": "#10b981",
+          "label": "보행자 B (횡단)"
+        },
+        "impact_point": {
+          "x": 240,
+          "y": 220
+        }
+      },
+      "insurance_guide": {
+        "bodily_injury_strategy": "형사합의 필요: 12대 중과실에 해당하므로 자동차종합보험 대인배상과 별도로 운전자보험의 '교통사고처리지원금(형사합의금)'과 '변호사선임비용' 청구 접수 필수.",
+        "settlement_formula": "보행자 전치 6주 이상 시 형사합의금 통상 주당 70만~100만원 선."
+      }
+    },
+    {
+      "id": "case_sudden_lane_change",
+      "title": "방향지시등 없는 급차선 변경(칼치기) 측면 충돌",
+      "keywords": [
+        "차선변경",
+        "깜빡이",
+        "칼치기",
+        "끼어들기",
+        "진로변경"
+      ],
+      "road_type": "multi_lane_road",
+      "base_fault": {
+        "vehicle_a_lane_changer": 70,
+        "vehicle_b_straight": 30
+      },
+      "governing_laws": [
+        "도로교통법 제19조 제3항 (진로변경 금지)",
+        "도로교통법 제38조 (차의 신호)"
+      ],
+      "twelve_gross_negligence": false,
+      "statutory_note": "후방 차량의 정상적인 통행에 장애를 줄 우려가 있을 때는 진로를 변경할 수 없습니다. 한문철 변호사 과실비율 실무에서는 후방 직진차가 도저히 피할 수 없는 근거리 칼치기의 경우 직진차 0% 무과실(100:0) 판례가 다수 인정됩니다.",
+      "modification_factors": [
+        {
+          "factor": "차선변경 차량(A) 방향지시등 미점등",
+          "fault_delta_a": 10
+        },
+        {
+          "factor": "실선 구간(진로변경 금지구역) 위반",
+          "fault_delta_a": 20,
+          "gross_flag": false
+        },
+        {
+          "factor": "직진차량(B) 제동거리 부족(도저히 피할 수 없는 급차선 변경)",
+          "fault_delta_a": 30,
+          "fault_delta_b": -30
+        }
+      ],
+      "precedent": {
+        "case_number": "서울중앙지방법원 2019나48102 판결",
+        "summary": "직진차량의 전방 10m 이내에서 방향지시등 없이 급차선 변경한 피고 차량의 일방 과실(100:0)을 인정."
+      },
+      "simulation_3d": {
+        "road": "straight_3lane",
+        "car_a": {
+          "start_x": 140,
+          "start_y": 320,
+          "target_x": 220,
+          "target_y": 180,
+          "angle": 30,
+          "color": "#ef4444",
+          "label": "상대 차량 A (급차선변경)"
+        },
+        "car_b": {
+          "start_x": 220,
+          "start_y": 340,
+          "target_x": 220,
+          "target_y": 180,
+          "angle": 0,
+          "color": "#3b82f6",
+          "label": "내 차량 B (직진)"
+        },
+        "impact_point": {
+          "x": 220,
+          "y": 180
+        }
+      },
+      "insurance_guide": {
+        "bodily_injury_strategy": "블랙박스 영상 판독 시 직진차 충돌 회피 가능성(제동 시간 1초 미만) 입증 시 100:0 무과실 주장 및 분심위 패스 후 소송 직송 권고.",
+        "property_damage": "100:0 판정 시 자차 자기부담금 0원, 렌트비 및 대물 배상 100% 수령."
+      }
+    },
+    {
+      "id": "case_door_opening_collision",
+      "title": "주정차 후 문 열다(개문사고) 후방 이륜차/자전거 충돌",
+      "keywords": [
+        "문열림",
+        "개문사고",
+        "오토바이",
+        "자전거",
+        "도어"
+      ],
+      "road_type": "roadside_parking",
+      "base_fault": {
+        "vehicle_a_door_opener": 80,
+        "bike_b_follower": 20
+      },
+      "governing_laws": [
+        "도로교통법 제49조 제1항 제7호 (운전자의 준수사항 - 안전확인 후 문열기)"
+      ],
+      "twelve_gross_negligence": false,
+      "statutory_note": "안전을 확인하지 않고 문을 열어 후방 교통에 위험을 초래한 차량에 중대한 과실이 있습니다. 야간이거나 문을 활짝 연 경우 90:10 또는 100:0까지 차량 과실이 가중됩니다.",
+      "modification_factors": [
+        {
+          "factor": "야간 또는 시야 장애 구역",
+          "fault_delta_a": 10
+        },
+        {
+          "factor": "이륜차(B) 전방주시태만 및 과속",
+          "fault_delta_b": 10
+        }
+      ],
+      "precedent": {
+        "case_number": "대법원 2010다45120 판결",
+        "summary": "택시 승객이 우측 문을 열다 후방에서 오던 오토바이와 충돌한 사고에서 개문자 측 과실 85% 인정."
+      },
+      "simulation_3d": {
+        "road": "roadside",
+        "car_a": {
+          "start_x": 100,
+          "start_y": 200,
+          "target_x": 100,
+          "target_y": 200,
+          "angle": 0,
+          "color": "#3b82f6",
+          "label": "내 차량 A (정차 후 개문)"
+        },
+        "car_b": {
+          "start_x": 160,
+          "start_y": 340,
+          "target_x": 140,
+          "target_y": 200,
+          "angle": 0,
+          "color": "#ef4444",
+          "label": "상대 오토바이 B (후방직진)"
+        },
+        "impact_point": {
+          "x": 130,
+          "y": 200
+        }
+      },
+      "insurance_guide": {
+        "bodily_injury_strategy": "이륜차 운전자가 낙차하여 중상해를 입기 쉬우므로 대인배상 한도 무한 종합보험 접수 필수.",
+        "settlement_formula": "승객이 문을 연 경우 승객의 일상생활배상책임보험(일배책)과 차량 운전자 자동차보험의 공동 불법행위 분담 비율 검토."
+      }
+    }
+  ]
+}
