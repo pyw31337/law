@@ -1,0 +1,55 @@
+{
+  "service_name": "Let's Law Intelligence Platform",
+  "service_version": "LDS v2.5.0 (LittleSis Judicial Revolving Door Benchmark)",
+  "updated_at": "2026-11-19 14:58:15 KST",
+  "macro_stats": {
+    "tracked_former_judges_and_prosecutors": 24,
+    "top_cartel_law_firms": ["김앤장 법률사무소", "법무법인 광장", "법무법인 로백스", "법무법인 율촌"],
+    "tracked_corporate_defense_cases": 12,
+    "total_estimated_legal_fees_billion_krw": 127.0
+  },
+  "judicial_cartels": [
+    {
+      "id": "cartel-law-001",
+      "cluster_title": "카카오 창업자 김범수 보석 및 SM 시세조종 15인 전관 방어선",
+      "target_corp": "카카오 (035720) 및 CA협의체",
+      "risk_status": "자본시장법 위반 혐의 구속 후 보석 석방, 재판 계류 중",
+      "law_firms": ["법무법인 광장", "김앤장 법률사무소"],
+      "key_attorneys": [
+        {
+          "name": "홍순탁 변호사 (가칭)",
+          "former_post": "서울중앙지검 금융조세조사부 부부장검사",
+          "current_post": "법무법인 광장 파트너 / 형사변호인단 총괄",
+          "strategy": "금감원 자본시장특사경 수사 논리 무력화 및 장내 매수 정상성 입증"
+        },
+        {
+          "name": "박형준 변호사 (가칭)",
+          "former_post": "서울남부지법 영장전담 부장판사",
+          "current_post": "김앤장 법률사무소 형사그룹",
+          "strategy": "보석 청구 인용 및 구속 기간 만료 전 방어권 보장 법리 관철"
+        }
+      ]
+    },
+    {
+      "id": "cartel-law-002",
+      "cluster_title": "삼성물산·제일모직 합병 회계부정 19개 혐의 전원 1심 무죄 전관 카르텔",
+      "target_corp": "삼성전자 및 삼성물산 (피고인 이재용 외 13인)",
+      "risk_status": "검찰 징역 5년 구형 ➔ 1심 재판부 19개 혐의 전원 무죄 선고",
+      "law_firms": ["법무법인 로백스", "김앤장 법률사무소", "법무법인 태평양"],
+      "key_attorneys": [
+        {
+          "name": "김기동 변호사",
+          "former_post": "대검찰청 부패범죄특별수사단장 / 부산지검장 (사법연수원 21기)",
+          "current_post": "법무법인 로백스 대표변호사",
+          "strategy": "특수통 검찰 수사 논리 해체, 제일모직 고평가 및 주주 손해 부존재 입증"
+        },
+        {
+          "name": "안정호 변호사",
+          "former_post": "서울고등법원 판사 / 대법원 재판연구관 (사법연수원 24기)",
+          "current_post": "김앤장 법률사무소 파트너",
+          "strategy": "경영상 판단 원칙에 따른 1:0.35 합병비율의 정당성 법리 완성"
+        }
+      ]
+    }
+  ]
+}
