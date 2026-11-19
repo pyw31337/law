@@ -1,8 +1,8 @@
 {
   "version": "2.1.0",
-  "last_updated": "2026-11-18T13:05:40.892641+09:00",
+  "last_updated": "2026-11-19T09:50:59.350843+09:00",
   "total_jurisdictions": 16,
-  "total_cases_indexed": 38314,
+  "total_cases_indexed": 38456,
   "coverage_sectors": {
     "domestic_korea": {
       "statutes_count": 1580,
