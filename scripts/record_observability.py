@@ -26,9 +26,17 @@ raw_bytes = json.dumps(raw, ensure_ascii=False, sort_keys=True).encode("utf-8")
 raw_path = ROOT / "data" / "raw" / "uk_legislation_feed.json"
 raw_path.parent.mkdir(parents=True, exist_ok=True)
 raw_path.write_bytes(raw_bytes + b"\n")
+out = ROOT / "data" / "observability" / "latest.json"
+prev_records = None
+if out.exists():
+    try:
+        prev_records = (json.loads(out.read_text(encoding="utf-8")).get("counts") or {}).get("records")
+    except (OSError, json.JSONDecodeError):
+        pass
+increment = max(0, len(records) - int(prev_records)) if isinstance(prev_records, (int, float)) else 0
 payload = {
     "schema": "lets_observability_v1",
-    "run_id": f"law-unimplemented-{now.strftime('%Y%m%dT%H%M%SZ')}",
+    "run_id": f"law-{now.strftime('%Y%m%dT%H%M%SZ')}",
     "observed_at": now.isoformat(),
     "service_id": "law",
     "source": "uk_legislation_feed",
@@ -38,11 +46,10 @@ payload = {
         "quality": {"status": "success", "quality_issue_count": 0, "detail": "Atom entry identifiers"},
         "publish": {"status": "success", "artifact": True},
     },
-    "counts": {"records": len(records)},
+    "counts": {"records": len(records), "increment": increment},
     "artifacts": {"raw": hashlib.sha256(raw_bytes).hexdigest()},
     "note": "UK legislation public Atom feed snapshot.",
 }
-out = ROOT / "data" / "observability" / "latest.json"
 out.parent.mkdir(parents=True, exist_ok=True)
 out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 print(f"Legislation entries observed: {len(records)}")

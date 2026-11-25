@@ -1,7 +1,7 @@
 {
   "schema": "lets_observability_v1",
-  "run_id": "law-unimplemented-20261124T040825Z",
-  "observed_at": "2026-11-24T04:08:25.717523+00:00",
+  "run_id": "law-20261125T021649Z",
+  "observed_at": "2026-11-25T02:16:49.996860+00:00",
   "service_id": "law",
   "source": "uk_legislation_feed",
   "stages": {
@@ -25,10 +25,11 @@
     }
   },
   "counts": {
-    "records": 20
+    "records": 20,
+    "increment": 0
   },
   "artifacts": {
-    "raw": "3b0b3e3235596499d481aa79491dc35683212f5766f0a38a1e1f37933f6b572b"
+    "raw": "dc30ec2076c6765e414a36d4b193c633d0fc32a41aacfc0cfadfc6a1c8ba84a9"
   },
   "note": "UK legislation public Atom feed snapshot."
 }
