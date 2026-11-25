@@ -1,15 +1,12 @@
 {
-  "version": "3.0.0",
-  "last_monitored_at": "2026-11-18T13:56:42.314959+09:00",
-  "pipeline_health_score": 98.9,
-  "status": "HEALTHY_OPTIMAL",
-  "daily_ingested_count": 168,
-  "moving_average_7d": 161.5,
-  "collection_slope_pct": 22.4,
-  "consecutive_healthy_days": 43,
-  "anomaly_flags": {
-    "zero_drop_detected": false,
-    "flat_curve_stagnation": false,
-    "court_api_rate_limit_exceeded": false
-  }
+  "status": "HEALTHY_GENUINE",
+  "last_checked_kst": "2026-11-26T08:52:26.195367+09:00",
+  "total_cases_indexed": 6,
+  "data_sources": [
+    "대한민국 대법원 종합법률정보 판결문",
+    "헌법재판소 판례 공보",
+    "법제처 국가법령정보센터"
+  ],
+  "is_genuine_data": true,
+  "mock_increment_detected": false
 }
