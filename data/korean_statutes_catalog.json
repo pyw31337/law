@@ -1,9 +1,9 @@
 {
-  "schema_version": "3.3.0",
-  "updated_at": "2026-11-26T18:01:24.657024+09:00",
-  "total_statutes": 12,
-  "total_articles_indexed": 50,
-  "total_precedents_indexed": 8,
+  "schema_version": "3.5.0",
+  "updated_at": "2026-11-27T08:27:58.587700+09:00",
+  "total_statutes": 16,
+  "total_articles_indexed": 57,
+  "total_precedents_indexed": 15,
   "statutes": [
     {
       "law_name": "대한민국헌법",
@@ -19,7 +19,7 @@
     },
     {
       "law_name": "주택임대차보호법",
-      "category": "부동산",
+      "category": "부동산·임대차",
       "articles_count": 33,
       "date": "2024-07-31"
     },
@@ -49,7 +49,7 @@
     },
     {
       "law_name": "상가건물 임대차보호법",
-      "category": "부동산",
+      "category": "부동산·임대차",
       "articles_count": 29,
       "date": "2024-01-01"
     },
@@ -76,6 +76,30 @@
       "category": "교통·손해배상",
       "articles_count": 166,
       "date": "2024-10-25"
+    },
+    {
+      "law_name": "민사집행법",
+      "category": "민사",
+      "articles_count": 312,
+      "date": "2024-01-01"
+    },
+    {
+      "law_name": "형사소송법",
+      "category": "형사",
+      "articles_count": 493,
+      "date": "2024-01-01"
+    },
+    {
+      "law_name": "저작권법",
+      "category": "IT·지식재산",
+      "articles_count": 142,
+      "date": "2024-01-01"
+    },
+    {
+      "law_name": "가사소송법",
+      "category": "가사·상속",
+      "articles_count": 72,
+      "date": "2024-01-01"
     }
   ],
   "precedents": [
@@ -142,6 +166,62 @@
       "date": "2019-08-29",
       "category": "기업·형사",
       "relevance": "경영판단의원칙 업무상배임 고의 이사의충실의무"
+    },
+    {
+      "case_no": "2018다254203",
+      "court": "대법원",
+      "case_name": "보험금(직장 유암종 D37.5 판결)",
+      "date": "2019-09-26",
+      "category": "보험·민사",
+      "relevance": "직장 유암종 신경내분비종양 D37.5 C20 일반암"
+    },
+    {
+      "case_no": "2017다278144",
+      "court": "대법원",
+      "case_name": "보험금(급성심근경색증 사망 판결)",
+      "date": "2018-05-15",
+      "category": "보험·민사",
+      "relevance": "급성심근경색증 돌연사 사체검안서 119구급일지 진단비"
+    },
+    {
+      "case_no": "2019두52940",
+      "court": "대법원",
+      "case_name": "부당해고구제재심판정취소",
+      "date": "2020-06-25",
+      "category": "노동·행정",
+      "relevance": "부당해고 정당한이유 징계권남용 구제신청"
+    },
+    {
+      "case_no": "2019다223594",
+      "court": "대법원",
+      "case_name": "임금(임금피크제 무효 확인)",
+      "date": "2022-05-26",
+      "category": "노동·민사",
+      "relevance": "임금피크제 연령차별 무효 업무량경감 대상조치"
+    },
+    {
+      "case_no": "2021도11175",
+      "court": "대법원",
+      "case_name": "특정범죄가중처벌등에관한법률위반(도주치상)",
+      "date": "2022-01-27",
+      "category": "교통·형사",
+      "relevance": "특가법 뺑소니 도주치상 명함교부 구호조치"
+    },
+    {
+      "case_no": "2014다219194",
+      "court": "대법원",
+      "case_name": "손해배상(상가 권리금 회수 방해)",
+      "date": "2019-07-04",
+      "category": "부동산·임대차",
+      "relevance": "상가 권리금 방해 손해배상 신규임차인 감정평가"
+    },
+    {
+      "case_no": "2018도16002",
+      "court": "대법원",
+      "case_name": "사기(무자본 갭투자 전세사기)",
+      "date": "2020-04-09",
+      "category": "부동산·형사",
+      "relevance": "전세사기 깡통전세 무자본갭투자 사기죄 편취의범의"
     }
   ]
 }

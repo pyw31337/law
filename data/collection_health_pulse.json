@@ -1,9 +1,9 @@
 {
   "status": "HEALTHY_GENUINE",
-  "last_checked_kst": "2026-11-26T18:01:24.657024+09:00",
-  "total_statutes_indexed": 12,
-  "total_articles_indexed": 50,
-  "total_precedents_indexed": 8,
+  "last_checked_kst": "2026-11-27T08:27:58.587700+09:00",
+  "total_statutes_indexed": 16,
+  "total_articles_indexed": 57,
+  "total_precedents_indexed": 15,
   "fts5_engine_active": true,
   "is_genuine_data": true
 }

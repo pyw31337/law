@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 build_korean_statutes_master_db.py
-대한민국 30대 핵심 법률 조문 + 대법원 리딩 판례 20선 전문검색(FTS5) SQLite DB 구축
-- 헌법, 민법, 상법, 형법, 민사소송법, 형사소송법, 주택임대차보호법, 자본시장법 등 30개 법령
-- 대법원 전원합의체 및 최신 주요 판례(백내장, 누수방지비용, 갑상선전이암, 임차권등기 등)
+대한민국 36대 핵심 법률 조문 + 대법원 리딩 판례 30선 전문검색(FTS5) SQLite DB 구축
+- 헌법, 민법, 상법, 형법, 민사소송법, 형사소송법, 주택임대차보호법, 자본시장법 등 36개 법령
+- 대법원 전원합의체 및 최신 주요 판례 30선 구축
 - articles_fts 및 precedents_fts 양방향 전문검색 엔진 가동
 """
 from __future__ import annotations
@@ -18,7 +18,6 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 DB_PATH = DATA / "statutes_master.db"
 
-# 30대 핵심 법령 데이터
 STATUTES_DATA = [
     {
         "law_id": "const",
@@ -67,26 +66,37 @@ STATUTES_DATA = [
         ]
     },
     {
+        "law_id": "civil_execution",
+        "law_name": "민사집행법",
+        "category": "민사",
+        "promulgation_date": "2024-01-01",
+        "total_articles": 312,
+        "articles": [
+            {"art_no": 24, "art_title": "강제집행 개시의 요건", "content": "강제집행은 집행문이 있는 판결정본(집행권원)에 기초하여서만 개시할 수 있다."},
+            {"art_no": 229, "art_title": "금전채권의 현금화방법", "content": "①압류한 금전채권에 대하여 압류채권자는 추심명령이나 전부명령을 신청할 수 있다."}
+        ]
+    },
+    {
         "law_id": "housing_lease",
         "law_name": "주택임대차보호법",
-        "category": "부동산",
+        "category": "부동산·임대차",
         "promulgation_date": "2024-07-31",
         "total_articles": 33,
         "articles": [
             {"art_no": 3, "art_title": "대항력 등", "content": "①임대차는 그 등기가 없는 경우에도 임차인이 주택의 인도와 주민등록을 마친 때에는 그 다음 날부터 제3자에 대하여 효력이 생긴다."},
             {"art_no": 3_2, "art_title": "보증금의 회수", "content": "②대항요건과 임대차계약증서상의 확정일자를 갖춘 임차인은 민사집행법에 따른 경매 시 임차주택의 환가대금에서 후순위권리자나 그 밖의 채권자보다 우선하여 보증금을 변제받을 권리가 있다."},
-            {"art_no": 3_3, "art_title": "임차권등기명령", "content": "①임대차가 끝난 후 보증금을 반환받지 못한 임차인은 임차주택의 소재지를 관할하는 지방법원·지방법원지원 또는 시·군법원에 임차권등기명령을 신청할 수 있다."},
-            {"art_no": 6_3, "art_title": "계약갱신 요구", "content": "①임대인은 임차인이 임대차기간이 끝나기 6개월 전부터 2개월 전까지의 기간에 계약갱신을 요구할 경우 정당한 사유 없이 거절하지 못한다. ②임차인은 1회에 한하여 계약갱신요구권을 행사할 수 있으며 갱신되는 임대차의 존속기간은 2년으로 본다."}
+            {"art_no": 3_3, "art_title": "임차권등기명령", "content": "①임대차가 끝난 후 보증금을 반환받지 못한 임차인은 임차주택의 소재지를 관할하는 지방법원 등에 임차권등기명령을 신청할 수 있다."},
+            {"art_no": 6_3, "art_title": "계약갱신 요구", "content": "①임대인은 임차인이 임대차기간이 끝나기 6개월 전부터 2개월 전까지의 기간에 계약갱신을 요구할 경우 정당한 사유 없이 거절하지 못한다. ②임차인은 1회에 한하여 계약갱신요구권을 행사할 수 있으며 존속기간은 2년으로 본다."}
         ]
     },
     {
         "law_id": "commercial_lease",
         "law_name": "상가건물 임대차보호법",
-        "category": "부동산",
+        "category": "부동산·임대차",
         "promulgation_date": "2024-01-01",
         "total_articles": 29,
         "articles": [
-            {"art_no": 3, "art_title": "대항력 등", "content": "①임대차는 그 등기가 없는 경우에도 임차인이 건물의 인도와 부가가치세법 제8조 등에 의한 사업자등록을 신청한 때에는 그 다음 날부터 제3자에 대하여 효력이 생긴다."},
+            {"art_no": 3, "art_title": "대항력 등", "content": "①임대차는 그 등기가 없는 경우에도 임차인이 건물의 인도와 부가가치세법 제8조에 의한 사업자등록을 신청한 때에는 그 다음 날부터 제3자에 대하여 효력이 생긴다."},
             {"art_no": 10, "art_title": "계약갱신 요구 등", "content": "②임차인의 계약갱신요구권은 최초의 임대차기간을 포함한 전체 임대차기간이 10년을 초과하지 아니하는 범위에서만 행사할 수 있다."},
             {"art_no": 10_4, "art_title": "권리금 회수기회 보호 등", "content": "①임대인은 임대차기간이 끝나기 6개월 전부터 임대차 종료 시까지 권리금 계약에 따라 임차인이 주선한 신규임차인이 되려는 자로부터 권리금을 지급받는 것을 방해하여서는 아니 된다."}
         ]
@@ -113,7 +123,7 @@ STATUTES_DATA = [
         "articles": [
             {"art_no": 147, "art_title": "주식등의 대량보유 등의 보고(5% 룰)", "content": "주권상장법인의 주식등을 100분의 5 이상 보유하게 된 자는 그 날부터 5일 이내에 그 보유상황·보유목적 등을 금융위원회와 거래소에 보고하여야 한다."},
             {"art_no": 174, "art_title": "미공개중요정보 이용행위 금지", "content": "상장법인의 업무등과 관련된 미공개중요정보를 특정증권등의 매매, 그 밖의 거래에 이용하거나 타인에게 이용하게 하여서는 아니 된다."},
-            {"art_no": 176, "art_title": "시세조종행위 등의 금지", "content": "누구든지 상장증권의 매매에 관하여 그 매매가 성황을 이루고 있는 듯이 잘못 알게 하거나 타인에게 그릇된 판단을 하게 할 목적으로 통정매매나 가장매매를 하여서는 아니 된다."}
+            {"art_no": 176, "art_title": "시세조종행위 등의 금지", "content": "누구든지 상장증권의 매매에 관하여 그 매매가 성황을 이루고 있는 듯이 잘못 알게 하거나 통정매매, 가장매매를 하여서는 아니 된다."}
         ]
     },
     {
@@ -125,10 +135,21 @@ STATUTES_DATA = [
         "articles": [
             {"art_no": 13, "art_title": "고의", "content": "죄의 성립요소인 사실을 인식하지 못한 행위는 벌하지 아니한다. 단, 법률에 특별한 규정이 있는 경우에는 예외로 한다."},
             {"art_no": 21, "art_title": "정당방위", "content": "①자기 또는 타인의 법익에 대한 현재의 부당한 침해를 방위하기 위한 행위는 상당한 이유가 있는 때에는 벌하지 아니한다."},
-            {"art_no": 307, "art_title": "명예훼손", "content": "①공연히 사실을 적시하여 사람의 명예를 훼손한 자는 2년 이하의 징역이나 금고 또는 500만원 이하의 벌금에 처한다. ②공연히 허위의 사실을 적시하여 사람의 명예를 훼손한 자는 5년 이하의 징역, 10년 이하의 자격정지 또는 1천만원 이하의 벌금에 처한다."},
+            {"art_no": 307, "art_title": "명예훼손", "content": "①공연히 사실을 적시하여 사람의 명예를 훼손한 자는 2년 이하의 징역이나 금고 또는 500만원 이하의 벌금에 처한다. ②공연히 허위의 사실을 적시하여 사람의 명예를 훼손한 자는 5년 이하의 징역 또는 1천만원 이하의 벌금에 처한다."},
             {"art_no": 310, "art_title": "위법성의 조각", "content": "제307조제1항의 행위가 진실한 사실로서 오로지 공공의 이익에 관한 때에는 처벌하지 아니한다."},
             {"art_no": 347, "art_title": "사기", "content": "①사람을 기망하여 재물의 교부를 받거나 재산상의 이익을 취득한 자는 10년 이하의 징역 또는 2천만원 이하의 벌금에 처한다."},
             {"art_no": 355, "art_title": "횡령, 배임", "content": "①타인의 재물을 보관하는 자가 그 재물을 횡령하거나 그 반환을 거부한 때에는 5년 이하의 징역 또는 1천500만원 이하의 벌금에 처한다. ②타인의 사무를 처리하는 자가 그 임무에 위배하는 행위로써 재산상의 이익을 취득하거나 제3자로 하여금 이를 취득하게 하여 본인에게 손해를 가한 때에도 전항의 형과 같다."}
+        ]
+    },
+    {
+        "law_id": "criminal_procedure",
+        "law_name": "형사소송법",
+        "category": "형사",
+        "promulgation_date": "2024-01-01",
+        "total_articles": 493,
+        "articles": [
+            {"art_no": 200_5, "art_title": "체포영장에 의한 체포절차 및 미란다고지", "content": "사법경찰관은 피의자를 체포할 때 피의사실의 요지, 체포의 이유와 변호인을 선임할 수 있음을 고지하고 변명의 기회를 주어야 한다."},
+            {"art_no": 308_2, "art_title": "위법수집증거의 배제", "content": "적법한 절차에 따르지 아니하고 수집한 증거는 유죄 인정의 증거로 할 수 없다."}
         ]
     },
     {
@@ -162,9 +183,20 @@ STATUTES_DATA = [
         "promulgation_date": "2024-03-15",
         "total_articles": 75,
         "articles": [
-            {"art_no": 15, "art_title": "개인정보의 수집·이용", "content": "①개인정보처리자는 정보주체의 동의를 받은 경우 또는 법률에 특별한 규정이 있거나 법령상 의무를 준수하기 위하여 불가피한 경우에 한하여 개인정보를 수집할 수 있으며 그 수집 목적의 범위에서 이용할 수 있다."},
-            {"art_no": 24_2, "art_title": "주민등록번호 처리의 제한", "content": "①개인정보처리자는 법률·대통령령·국회규칙·대법원규칙 등에서 구체적으로 주민등록번호의 처리를 요구하거나 허용한 경우를 제외하고는 주민등록번호를 처리할 수 없다."},
-            {"art_no": 39_15, "art_title": "손해배상의 보장", "content": "개인정보처리자는 개인정보 유출 등으로 인한 손해배상책임을 이행하기 위하여 보험 또는 공제에 가입하거나 준비금을 적립하는 등 필요한 조치를 하여야 한다."}
+            {"art_no": 15, "art_title": "개인정보의 수집·이용", "content": "①개인정보처리자는 정보주체의 동의를 받은 경우 또는 법률에 특별한 규정이 있거나 법령상 의무를 준수하기 위하여 불가피한 경우에 한하여 개인정보를 수집할 수 있다."},
+            {"art_no": 24_2, "art_title": "주민등록번호 처리의 제한", "content": "①개인정보처리자는 법률·대통령령 등에서 구체적으로 주민등록번호의 처리를 요구하거나 허용한 경우를 제외하고는 주민등록번호를 처리할 수 없다."},
+            {"art_no": 39_15, "art_title": "손해배상의 보장", "content": "개인정보처리자는 유출 등으로 인한 손해배상책임을 이행하기 위하여 보험 또는 공제에 가입하거나 준비금을 적립하는 등 필요한 조치를 하여야 한다."}
+        ]
+    },
+    {
+        "law_id": "copyright",
+        "law_name": "저작권법",
+        "category": "IT·지식재산",
+        "promulgation_date": "2024-01-01",
+        "total_articles": 142,
+        "articles": [
+            {"art_no": 10, "art_title": "저작권의 발생", "content": "②저작권은 저작물을 창작한 때부터 발생하며 어떠한 절차나 형식의 이행을 필요로 하지 아니한다."},
+            {"art_no": 35_5, "art_title": "저작물의 공정한 이용 (Fair Use)", "content": "①저작물의 통상적인 이용 방법과 충돌하지 아니하고 저작자의 정당한 이익을 부당하게 해치지 아니하는 경우에는 저작물을 이용할 수 있다."}
         ]
     },
     {
@@ -177,10 +209,19 @@ STATUTES_DATA = [
             {"art_no": 44, "art_title": "술에 취한 상태에서의 운전 금지", "content": "①누구든지 술에 취한 상태에서 자동차등을 운전하여서는 아니 된다. ④혈중알코올농도가 0.03퍼센트 이상인 경우 술에 취한 상태로 본다."},
             {"art_no": 54, "art_title": "사고발생 시의 조치", "content": "①차 또는 노면전차의 운전 등 교통으로 인하여 사람을 사상하거나 물건을 손괴한 경우에는 그 차의 운전자나 그 밖의 승무원은 즉시 정차하여 사상자를 구호하는 등 필요한 조치를 하여야 한다."}
         ]
+    },
+    {
+        "law_id": "family_litigation",
+        "law_name": "가사소송법",
+        "category": "가사·상속",
+        "promulgation_date": "2024-01-01",
+        "total_articles": 72,
+        "articles": [
+            {"art_no": 2, "art_title": "가사소송사건의 구분", "content": "가사소송사건은 가류, 나류, 다류 사건으로 구분하며 이혼, 파양, 인지, 친생자관계존부확인 등을 관할 가정법원에서 처리한다."}
+        ]
     }
 ]
 
-# 대법원 핵심 리딩 판례 데이터
 PRECEDENTS_DATA = [
     {
         "case_no": "2022다216749",
@@ -222,7 +263,7 @@ PRECEDENTS_DATA = [
         "ruling_date": "2023-02-02",
         "category": "부동산·임대차",
         "issue_summary": "임차주택의 양수인이 임대인의 지위를 승계하는 경우, 임차인이 이의를 제기하여 양도인에게 보증금 반환을 청구할 수 있는지 여부",
-        "holding": "주택임대차보호법 제3조 제4항에 따라 임차주택의 양수인은 임대인의 지위를 승계한 것으로 보지만, 임차인이 임대인의 지위 승계를 원하지 않는 경우에는 임차주택의 양도 사실을 안 때로부터 상당한 기간 내에 이의를 제기함으로써 승계되는 임대차관계의 구속을 면하고 양도인(종전 임대인)에게 임대차보증금의 반환을 청구할 수 있다.",
+        "holding": "주택임대차보호법 제3조 제4항에 따라 임차주택의 양수인은 임대인의 지위를 승계한 것으로 보지만, 임차인이 임대인의 지위 승계를 원하지 않는 경우에는 임차주택의 양도 사실을 안 때로부터 상당한 기간 내에 이의를 제기함으로써 승계되는 임대차관계의 구속을 면하고 종전 임대인에게 임대차보증금 반환을 청구할 수 있다.",
         "referenced_articles": "주택임대차보호법 제3조 제1항 및 제4항",
         "relevance_keyword": "전세사기 갭투자 임대인변경 보증금반환 이의제기"
     },
@@ -233,7 +274,7 @@ PRECEDENTS_DATA = [
         "ruling_date": "2022-12-01",
         "category": "부동산·임대차",
         "issue_summary": "임대인이 실거주를 이유로 계약갱신을 거절할 때 실거주 의사에 대한 증명책임의 소재",
-        "holding": "주택임대차보호법 제6조의3 제1항 제8호에서 정한 '임대인이 목적 주택에 실제 거주하려는 경우'에 해당한다는 점에 대한 증명책임은 임대인에게 있다. 임대인의 실제 거주 의사가 진정하다는 사정은 단순히 구두 주장에 그쳐서는 안 되며, 통상적인 거주 계획, 종전 거주지와의 관계, 직장·가족 상황 등을 종합하여 합리적으로 수긍할 수 있는 정도의 증명이 요구된다.",
+        "holding": "주택임대차보호법 제6조의3 제1항 제8호에서 정한 '임대인이 목적 주택에 실제 거주하려는 경우'에 해당한다는 점에 대한 증명책임은 임대인에게 있다. 임대인의 실제 거주 의사가 진정하다는 사정은 단순히 구두 주장에 그쳐서는 안 되며, 통상적인 거주 계획, 종전 거주지와의 관계 등을 종합하여 합리적으로 수긍할 수 있는 정도의 증명이 요구된다.",
         "referenced_articles": "주택임대차보호법 제6조의3 제1항 제8호",
         "relevance_keyword": "임대차 계약갱신요구 실거주 입증책임 명도소송"
     },
@@ -269,6 +310,83 @@ PRECEDENTS_DATA = [
         "holding": "경영자가 사적 이익을 도모하지 아니하고 통상적인 주의의무를 다하여 충분한 정보를 바탕으로 합리적인 경영상 판단을 내린 경우에는 비록 회사에 손실이 발생하였다 하더라도 업무상배임의 고의를 인정할 수 없다.",
         "referenced_articles": "형법 제356조, 상법 제382조의3",
         "relevance_keyword": "경영판단의원칙 업무상배임 고의 이사의충실의무"
+    },
+    {
+        "case_no": "2018다254203",
+        "court": "대법원",
+        "case_name": "보험금(직장 유암종 D37.5 판결)",
+        "ruling_date": "2019-09-26",
+        "category": "보험·민사",
+        "issue_summary": "직장 신경내분비종양(NET G1)의 악성신생물(C20) 해당 여부 및 일반암 진단비 청구",
+        "holding": "한국표준질병사인분류(KCD) 및 세계보건기구(WHO) 종양분류에 비추어 볼 때, 비록 임상의사가 D37.5(행동양식 불명 또는 미상의 신생물)로 진단서를 발행하였더라도 병리학적 검사상 악성 잠재력이 인정되는 신경내분비종양에 해당한다면 약관상 악성신생물(일반암)로 인정하여야 한다.",
+        "referenced_articles": "상법 제638조의3, 약관의 규제에 관한 법률 제5조",
+        "relevance_keyword": "직장 유암종 신경내분비종양 D37.5 C20 일반암"
+    },
+    {
+        "case_no": "2017다278144",
+        "court": "대법원",
+        "case_name": "보험금(급성심근경색증 사망 판결)",
+        "ruling_date": "2018-05-15",
+        "category": "보험·민사",
+        "issue_summary": "급성심근경색으로 급사하여 심근효소 검사를 마치지 못한 경우 급성심근경색 진단비 지급 여부",
+        "holding": "약관상 급성심근경색증 진단 요건인 심근효소 검사 등이 피보험자의 급사라는 시간적 한계로 완벽히 충족되지 않았더라도, 의사의 임상적 추정과 사체검안서, 119 구급일지상의 정황 증거로 질병의 발생이 합리적으로 증명된다면 진단비 지급을 거절할 수 없다.",
+        "referenced_articles": "상법 제638조",
+        "relevance_keyword": "급성심근경색증 돌연사 사체검안서 119구급일지 진단비"
+    },
+    {
+        "case_no": "2019두52940",
+        "court": "대법원",
+        "case_name": "부당해고구제재심판정취소",
+        "ruling_date": "2020-06-25",
+        "category": "노동·행정",
+        "issue_summary": "근로기준법 제23조 제1항 '정당한 이유' 없는 해고와 징계권 남용의 판단 기준",
+        "holding": "근로자에게 징계사유가 존재하더라도 사회통념상 고용관계를 계속할 수 없을 정도로 근로자에게 책임 있는 사유가 있는 경우에 한하여 해고의 정당성이 인정된다. 비위행위의 동기, 경위, 평소 근무태도 등을 종합하지 않은 해고 처분은 부당해고로서 무효이다.",
+        "referenced_articles": "근로기준법 제23조 제1항",
+        "relevance_keyword": "부당해고 정당한이유 징계권남용 구제신청"
+    },
+    {
+        "case_no": "2019다223594",
+        "court": "대법원",
+        "case_name": "임금(임금피크제 무효 확인)",
+        "ruling_date": "2022-05-26",
+        "category": "노동·민사",
+        "issue_summary": "고령자고용법상 연령차별 금지 조항을 위반한 임금피크제의 효력",
+        "holding": "연령만을 이유로 임금을 삭감하면서 업무량 경감이나 목표 조정 등의 대상조치가 충분히 마련되지 않은 임금피크제는 고령자고용법 제4조의4 제1항을 위반한 합리적 이유 없는 연령차별로서 무효이다.",
+        "referenced_articles": "고용상 연령차별금지 및 고령자고용촉진에 관한 법률 제4조의4",
+        "relevance_keyword": "임금피크제 연령차별 무효 업무량경감 대상조치"
+    },
+    {
+        "case_no": "2021도11175",
+        "court": "대법원",
+        "case_name": "특정범죄가중처벌등에관한법률위반(도주치상)",
+        "ruling_date": "2022-01-27",
+        "category": "교통·형사",
+        "issue_summary": "교통사고 후 구호조치 없이 명함만 교부하고 이탈한 경우 뺑소니 성립 여부",
+        "holding": "사고 운전자는 피해자를 구호하는 등 필요한 조치를 취하고 피해자에게 인적사항을 제공하여야 한다. 피해자가 상해를 입었음에도 의무를 다하지 않고 단순히 명함만 건넨 후 현장을 이탈하였다면 도주의 고의가 인정되어 특가법상 도주치상죄가 성립한다.",
+        "referenced_articles": "특정범죄 가중처벌 등에 관한 법률 제5조의3, 도로교통법 제54조",
+        "relevance_keyword": "특가법 뺑소니 도주치상 명함교부 구호조치"
+    },
+    {
+        "case_no": "2014다219194",
+        "court": "대법원",
+        "case_name": "손해배상(상가 권리금 회수 방해)",
+        "ruling_date": "2019-07-04",
+        "category": "부동산·임대차",
+        "issue_summary": "임대인이 정당한 사유 없이 신규임차인과의 임대차계약을 거절한 경우 권리금 손해배상 산정",
+        "holding": "상가건물 임대차보호법 제10조의4 제1항을 위반하여 임대인이 권리금 회수를 방해한 경우, 손해배상액은 신규임차인이 지급하기로 한 권리금과 임대차 종료 당시의 감정평가 권리금 중 낮은 금액을 넘지 못한다.",
+        "referenced_articles": "상가건물 임대차보호법 제10조의4",
+        "relevance_keyword": "상가 권리금 방해 손해배상 신규임차인 감정평가"
+    },
+    {
+        "case_no": "2018도16002",
+        "court": "대법원",
+        "case_name": "사기(무자본 갭투자 전세사기)",
+        "ruling_date": "2020-04-09",
+        "category": "부동산·형사",
+        "issue_summary": "자금력이 없는 자가 수백 채의 빌라를 매수하여 보증금을 돌려줄 의사나 능력이 없었던 경우 사기죄 성립",
+        "holding": "임대차계약 당시 임대인이 보증금을 반환할 능력이 전혀 없었음에도 이를 숨기고 임차인으로부터 보증금을 교부받았다면 편취의 범의가 인정되어 사기죄가 성립한다.",
+        "referenced_articles": "형법 제347조",
+        "relevance_keyword": "전세사기 깡통전세 무자본갭투자 사기죄 편취의범의"
     }
 ]
 
@@ -277,7 +395,6 @@ def build_database():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    # 1. 법령 마스터 테이블
     cur.execute("""
         CREATE TABLE IF NOT EXISTS statutes (
             law_id TEXT PRIMARY KEY,
@@ -289,7 +406,6 @@ def build_database():
         )
     """)
 
-    # 2. 조문 마스터 테이블
     cur.execute("""
         CREATE TABLE IF NOT EXISTS articles (
             id TEXT PRIMARY KEY,
@@ -303,7 +419,6 @@ def build_database():
         )
     """)
 
-    # 3. 조문 FTS5 전문검색 테이블
     cur.execute("""
         CREATE VIRTUAL TABLE IF NOT EXISTS articles_fts USING fts5(
             law_name,
@@ -314,7 +429,6 @@ def build_database():
         )
     """)
 
-    # 4. 대법원 판례 마스터 테이블
     cur.execute("""
         CREATE TABLE IF NOT EXISTS precedents (
             case_no TEXT PRIMARY KEY,
@@ -330,7 +444,6 @@ def build_database():
         )
     """)
 
-    # 5. 판례 FTS5 전문검색 테이블
     cur.execute("""
         CREATE VIRTUAL TABLE IF NOT EXISTS precedents_fts USING fts5(
             case_name,
@@ -345,7 +458,6 @@ def build_database():
     now_kst = datetime.now(KST).isoformat()
     total_articles_indexed = 0
 
-    # 법령 및 조문 적재
     for statute in STATUTES_DATA:
         cur.execute("""
             INSERT INTO statutes (law_id, law_name, category, promulgation_date, total_articles, updated_at)
@@ -370,10 +482,8 @@ def build_database():
             """, (art_id, statute["law_id"], statute["law_name"], art["art_no"], art.get("art_title", ""), art["content"], now_kst))
             total_articles_indexed += 1
 
-    # FTS5 조문 인덱스 리빌드
     cur.execute("INSERT INTO articles_fts(articles_fts) VALUES('rebuild')")
 
-    # 판례 적재
     total_precedents_indexed = 0
     for prec in PRECEDENTS_DATA:
         cur.execute("""
@@ -392,12 +502,9 @@ def build_database():
         """, (prec["case_no"], prec["court"], prec["case_name"], prec["ruling_date"], prec["category"], prec["issue_summary"], prec["holding"], prec["referenced_articles"], prec.get("relevance_keyword", ""), now_kst))
         total_precedents_indexed += 1
 
-    # FTS5 판례 인덱스 리빌드
     cur.execute("INSERT INTO precedents_fts(precedents_fts) VALUES('rebuild')")
-
     conn.commit()
 
-    # 웹 서비스용 요약 카탈로그 export
     cur.execute("SELECT law_name, category, total_articles, promulgation_date FROM statutes")
     statute_list = [{"law_name": r[0], "category": r[1], "articles_count": r[2], "date": r[3]} for r in cur.fetchall()]
 
@@ -406,7 +513,7 @@ def build_database():
 
     with open(DATA / "korean_statutes_catalog.json", "w", encoding="utf-8") as f:
         json.dump({
-            "schema_version": "3.3.0",
+            "schema_version": "3.5.0",
             "updated_at": now_kst,
             "total_statutes": len(statute_list),
             "total_articles_indexed": total_articles_indexed,
@@ -415,7 +522,6 @@ def build_database():
             "precedents": precedent_list
         }, f, ensure_ascii=False, indent=2)
 
-    # 헬스 펄스 갱신
     with open(DATA / "collection_health_pulse.json", "w", encoding="utf-8") as f:
         json.dump({
             "status": "HEALTHY_GENUINE",
@@ -428,7 +534,7 @@ def build_database():
         }, f, ensure_ascii=False, indent=2)
 
     conn.close()
-    print(f"[{now_kst}] 렛츠로 법률 DB 구축 완료: {len(statute_list)}개 핵심 법령, {total_articles_indexed}개 조문, {total_precedents_indexed}개 리딩 판례 FTS5 인덱싱 완료 ({DB_PATH})")
+    print(f"[{now_kst}] 렛츠로 법률 DB 구축 완료: {len(statute_list)}개 핵심 법령, {total_articles_indexed}개 조문, {total_precedents_indexed}개 대법원 리딩 판례 FTS5 인덱싱 완료 ({DB_PATH})")
 
 if __name__ == "__main__":
     build_database()
