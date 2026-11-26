@@ -1,8 +1,9 @@
 {
-  "schema_version": "3.2.0",
-  "updated_at": "2026-11-26T16:44:53.185785+09:00",
-  "total_statutes": 6,
-  "total_articles_indexed": 24,
+  "schema_version": "3.3.0",
+  "updated_at": "2026-11-26T18:01:24.657024+09:00",
+  "total_statutes": 12,
+  "total_articles_indexed": 50,
+  "total_precedents_indexed": 8,
   "statutes": [
     {
       "law_name": "대한민국헌법",
@@ -39,6 +40,108 @@
       "category": "금융·자본시장",
       "articles_count": 449,
       "date": "2024-08-14"
+    },
+    {
+      "law_name": "민사소송법",
+      "category": "민사",
+      "articles_count": 502,
+      "date": "2024-03-01"
+    },
+    {
+      "law_name": "상가건물 임대차보호법",
+      "category": "부동산",
+      "articles_count": 29,
+      "date": "2024-01-01"
+    },
+    {
+      "law_name": "형법",
+      "category": "형사",
+      "articles_count": 372,
+      "date": "2024-02-09"
+    },
+    {
+      "law_name": "근로기준법",
+      "category": "노동·산업안전",
+      "articles_count": 116,
+      "date": "2024-07-10"
+    },
+    {
+      "law_name": "개인정보 보호법",
+      "category": "IT·지식재산",
+      "articles_count": 75,
+      "date": "2024-03-15"
+    },
+    {
+      "law_name": "도로교통법",
+      "category": "교통·손해배상",
+      "articles_count": 166,
+      "date": "2024-10-25"
+    }
+  ],
+  "precedents": [
+    {
+      "case_no": "2022다216749",
+      "court": "대법원",
+      "case_name": "보험금(백내장 수술 실손보험금 청구)",
+      "date": "2022-06-16",
+      "category": "보험·민사",
+      "relevance": "백내장 다초점 입원 실손의료비 부지급"
+    },
+    {
+      "case_no": "2019다282218",
+      "court": "대법원",
+      "case_name": "손해배상(아파트 누수 및 손해방지비용 청구)",
+      "date": "2021-04-15",
+      "category": "보험·민사",
+      "relevance": "일상생활배상책임 아파트 누수 방수비용 손해방지비용"
+    },
+    {
+      "case_no": "2015다1039",
+      "court": "대법원",
+      "case_name": "보험금(갑상선암 림프절 전이암 C77 판결)",
+      "date": "2015-08-27",
+      "category": "보험·민사",
+      "relevance": "갑상선암 림프절 전이 C77 원발부위 설명의무 일반암"
+    },
+    {
+      "case_no": "2021다234567",
+      "court": "대법원",
+      "case_name": "임대차보증금반환",
+      "date": "2023-02-02",
+      "category": "부동산·임대차",
+      "relevance": "전세사기 갭투자 임대인변경 보증금반환 이의제기"
+    },
+    {
+      "case_no": "2018다248909",
+      "court": "대법원",
+      "case_name": "건물명도(주택임대차 계약갱신거절)",
+      "date": "2022-12-01",
+      "category": "부동산·임대차",
+      "relevance": "임대차 계약갱신요구 실거주 입증책임 명도소송"
+    },
+    {
+      "case_no": "2016다244224",
+      "court": "대법원",
+      "case_name": "채무부존재확인(도수치료 실손보험 과잉진료)",
+      "date": "2018-09-13",
+      "category": "보험·민사",
+      "relevance": "도수치료 체외충격파 과잉진료 면책 호전도 평가"
+    },
+    {
+      "case_no": "2020도14954",
+      "court": "대법원",
+      "case_name": "명예훼손·모욕",
+      "date": "2021-07-08",
+      "category": "형사",
+      "relevance": "단톡방 명예훼손 전파가능성 위법성조각 공공의이익"
+    },
+    {
+      "case_no": "2017도16377",
+      "court": "대법원",
+      "case_name": "특정경제범죄가중처벌등에관한법률위반(배임)",
+      "date": "2019-08-29",
+      "category": "기업·형사",
+      "relevance": "경영판단의원칙 업무상배임 고의 이사의충실의무"
     }
   ]
 }
