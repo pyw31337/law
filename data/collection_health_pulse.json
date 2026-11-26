@@ -1,12 +1,8 @@
 {
   "status": "HEALTHY_GENUINE",
-  "last_checked_kst": "2026-11-26T10:59:30.941548+09:00",
-  "total_cases_indexed": 6,
-  "data_sources": [
-    "대한민국 대법원 종합법률정보 판결문",
-    "헌법재판소 판례 공보",
-    "법제처 국가법령정보센터"
-  ],
-  "is_genuine_data": true,
-  "mock_increment_detected": false
+  "last_checked_kst": "2026-11-26T16:44:53.185785+09:00",
+  "total_statutes_indexed": 6,
+  "total_articles_indexed": 24,
+  "fts5_engine_active": true,
+  "is_genuine_data": true
 }

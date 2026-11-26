@@ -1,0 +1,44 @@
+{
+  "schema_version": "3.2.0",
+  "updated_at": "2026-11-26T16:44:53.185785+09:00",
+  "total_statutes": 6,
+  "total_articles_indexed": 24,
+  "statutes": [
+    {
+      "law_name": "대한민국헌법",
+      "category": "헌법",
+      "articles_count": 130,
+      "date": "1987-10-29"
+    },
+    {
+      "law_name": "민법",
+      "category": "민사",
+      "articles_count": 1118,
+      "date": "2024-05-17"
+    },
+    {
+      "law_name": "주택임대차보호법",
+      "category": "부동산",
+      "articles_count": 33,
+      "date": "2024-07-31"
+    },
+    {
+      "law_name": "상법",
+      "category": "기업·상사",
+      "articles_count": 935,
+      "date": "2024-03-26"
+    },
+    {
+      "law_name": "중대재해 처벌 등에 관한 법률",
+      "category": "노동·산업안전",
+      "articles_count": 16,
+      "date": "2024-01-27"
+    },
+    {
+      "law_name": "자본시장과 금융투자업에 관한 법률",
+      "category": "금융·자본시장",
+      "articles_count": 449,
+      "date": "2024-08-14"
+    }
+  ]
+}
